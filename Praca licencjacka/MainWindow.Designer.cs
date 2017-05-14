@@ -49,6 +49,9 @@
             this.DrawingDesk.TabIndex = 0;
             this.DrawingDesk.TabStop = false;
             this.DrawingDesk.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DrawingDesk_MouseClick);
+            this.DrawingDesk.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DrawingDesk_MouseDown);
+            this.DrawingDesk.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DrawingDesk_MouseMove);
+            this.DrawingDesk.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DrawingDesk_MouseUp);
             // 
             // GraphInformation
             // 

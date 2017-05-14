@@ -47,6 +47,18 @@ namespace Praca_licencjacka
             return null;
         }
 
+        public Vertex GetSelected()
+        {
+            Graph graph = Graph.GetInstance();
+            List<Vertex> listedGraph = graph.ToVertexList();
+            foreach (Vertex currentVertex in listedGraph)
+            {
+                if (currentVertex.STATUS.Equals("SELECTED"))
+                    return currentVertex;
+            }
+            return null;
+        }
+
         public void MarkStarted(Point coordinates)
         {
             Graph graph = Graph.GetInstance();
@@ -73,11 +85,29 @@ namespace Praca_licencjacka
             }
         }
 
+        public void MarkSelected(Point coordiantes)
+        {
+            Graph graph = Graph.GetInstance();
+            Vertex toMark = null;
+            if ((toMark = graph.GetVertexColliding(coordiantes)) != null)
+            {
+                toMark.STATUS = "SELECTED";
+            }
+        }
+
+        public void Unmark(Vertex toUnmark)
+        {
+            if (toUnmark != null)
+                toUnmark.STATUS = "NORMAL";
+        }
+
         public void Redraw()
         {
             this.ClearDrawingPanel();
             this.DrawEdges();
             this.DrawVertexes();
+            this.DrawPointNumbers();
+            this.DrawTravelCosts();
             this.Refresh();
         }
 
@@ -92,6 +122,54 @@ namespace Praca_licencjacka
         private void Refresh()
         {
             this._drawingPanel.Refresh();
+        }
+
+        private void DrawPointNumbers()
+        {
+            Graph graph = Graph.GetInstance();
+            List<Vertex> listedGraph = graph.ToVertexList();
+            using(Graphics numberDrawer = Graphics.FromImage(this._drawingPanel.Image))
+            {
+                numberDrawer.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                Brush myPen = new SolidBrush(Color.White);
+                StringFormat drawingFormat = new StringFormat();
+                int pointNumber = 0;
+                foreach(Vertex currentVertex in listedGraph)
+                {
+                    pointNumber++;
+                    Point currentCoords = currentVertex.GetVertexPosition();
+                    currentCoords.X += 5; currentCoords.Y += 5;
+                    numberDrawer.DrawString(pointNumber.ToString(), new Font("Arial", 10), myPen, currentCoords,drawingFormat);
+                }
+            }
+        }
+
+        public void DrawTravelCosts()
+        {
+            Graph graph = Graph.GetInstance();
+            List<Vertex> listedGraph = graph.ToVertexList();
+            using (Graphics costsDrawer = Graphics.FromImage(this._drawingPanel.Image))
+            {
+                Brush myPen = new SolidBrush(Color.White);
+                Brush backGround = new SolidBrush(Color.Black);
+                Font drawingFont = new Font("Arial", 14 , FontStyle.Bold);
+                
+                foreach(Vertex currentVertex in listedGraph)
+                {
+                    List<Edge> neighbours = currentVertex.GetEdges();
+                    foreach(Edge currentEdge in neighbours)
+                    {
+                        Vertex destination = currentEdge.GetDestination();
+                        double distance = currentEdge.GetTravelCost();
+                        distance = Math.Round(distance);
+                        Point drawingPosition = new Point();
+                        drawingPosition.X = (currentVertex.GetX() + destination.GetX()) / 2;
+                        drawingPosition.Y = (currentVertex.GetY() + destination.GetY()) / 2;
+                        costsDrawer.FillRectangle(backGround, new Rectangle(drawingPosition.X, drawingPosition.Y, 40, 20));
+                        costsDrawer.DrawString(distance.ToString(), drawingFont, myPen, drawingPosition, new StringFormat());
+                    }
+                }
+            }
         }
 
         private void DrawVertexes()
@@ -123,8 +201,12 @@ namespace Praca_licencjacka
                     List<Edge> neighbours = currentVertex.GetEdges();
                     foreach(Edge currentEdge in neighbours)
                     {
-                        // TO CHANGE
-                        edgeDrawer.DrawLine(Pens.Black, currentVertex.GetVertexPosition(), currentEdge.GetDestination().GetVertexPosition());
+                        Pen myPen = new Pen(new SolidBrush(Color.Black), 3);
+                        Point startingPosition = currentVertex.GetVertexPosition();
+                        Point endingPosition = currentEdge.GetDestination().GetVertexPosition();
+                        startingPosition.X += 12; startingPosition.Y += 12;
+                        endingPosition.X += 12; endingPosition.Y += 12;
+                        edgeDrawer.DrawLine(myPen, startingPosition, endingPosition);
                     }
                 }
             }
@@ -134,10 +216,12 @@ namespace Praca_licencjacka
         {
             if (vertex.STATUS.Equals("NORMAL"))
                 return new SolidBrush(Color.Black);
-            else if(vertex.STATUS.Equals("START"))
+            else if (vertex.STATUS.Equals("START"))
                 return new SolidBrush(Color.Green);
             else if (vertex.STATUS.Equals("END"))
                 return new SolidBrush(Color.Indigo);
+            else if (vertex.STATUS.Equals("SELECTED"))
+                return new SolidBrush(Color.Red);
             else return new SolidBrush(Color.Gray);
         }
 
