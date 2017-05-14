@@ -139,7 +139,7 @@ namespace Praca_licencjacka
                     pointNumber++;
                     Point currentCoords = currentVertex.GetVertexPosition();
                     currentCoords.X += 5; currentCoords.Y += 5;
-                    numberDrawer.DrawString(pointNumber.ToString(), new Font("Arial", 10), myPen, currentCoords,drawingFormat);
+                    numberDrawer.DrawString(pointNumber.ToString(), new Font("Verdana", 10), myPen, currentCoords,drawingFormat);
                 }
             }
         }
@@ -165,7 +165,7 @@ namespace Praca_licencjacka
                         Point drawingPosition = new Point();
                         drawingPosition.X = (currentVertex.GetX() + destination.GetX()) / 2;
                         drawingPosition.Y = (currentVertex.GetY() + destination.GetY()) / 2;
-                        costsDrawer.FillRectangle(backGround, new Rectangle(drawingPosition.X, drawingPosition.Y, 40, 20));
+                        costsDrawer.FillRectangle(backGround, new Rectangle(drawingPosition.X, drawingPosition.Y, this.GetPixelsAmount((int)distance), 20));
                         costsDrawer.DrawString(distance.ToString(), drawingFont, myPen, drawingPosition, new StringFormat());
                     }
                 }
@@ -186,6 +186,19 @@ namespace Praca_licencjacka
                     vertexDrawer.FillEllipse(suitableBrush, currentVertex.GetX(), currentVertex.GetY(), elipseSize, elipseSize);
                 }
             }
+        }
+
+        private int GetPixelsAmount(int number)
+        {
+            int pixels = 0;
+            while (true)
+            {
+                if ((number).Equals(0))
+                    break;
+                number = number / 10;
+                pixels += 13;
+            }
+            return pixels;
         }
 
         private void DrawEdges()
