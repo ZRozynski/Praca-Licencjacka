@@ -40,12 +40,17 @@ namespace Praca_licencjacka
 
         public static Graph GetInstance()
         {
-            if(_instance.Equals(null))
+            if(_instance == null)
             {
                 _instance = new Graph();
                 return _instance;
             }
             return _instance;
+        }
+
+        public List<Vertex> ToVertexList()
+        {
+            return this._graph;
         }
     }
 }

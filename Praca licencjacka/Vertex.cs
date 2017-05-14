@@ -13,6 +13,7 @@ namespace Praca_licencjacka
         private int _yPos;
         private List<Edge> _neighbours;
         public int vertexSizeInPixels = 25;
+        public string STATUS = "NORMAL";
 
         public Vertex(int xPos, int yPos)
         {
@@ -21,6 +22,13 @@ namespace Praca_licencjacka
             this._neighbours = new List<Edge>();
         }
         
+        public Vertex(Point coordinates)
+        {
+            this._xPos = coordinates.X;
+            this._yPos = coordinates.Y;
+            this._neighbours = new List<Edge>();
+        }
+
         public void SetPosition(int newXPos, int newYPos)
         {
             this._xPos = newXPos;
@@ -94,5 +102,12 @@ namespace Praca_licencjacka
             }
             return null;
         }
+
+        public List<Edge> GetEdges()
+        {
+            return this._neighbours;
+        }
+
+
     }
 }

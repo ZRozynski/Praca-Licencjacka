@@ -31,11 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.DrawingDesk = new System.Windows.Forms.PictureBox();
             this.GraphInformation = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.choseStartingPointBtn = new System.Windows.Forms.Button();
             this.loadGraphFromFileBtn = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.beginBtn = new System.Windows.Forms.Button();
+            this.chooseEndnigPointBtn = new System.Windows.Forms.Button();
+            this.saveGraphBtn = new System.Windows.Forms.Button();
             this.clearDrawingDeskBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DrawingDesk)).BeginInit();
             this.SuspendLayout();
@@ -48,6 +48,7 @@
             this.DrawingDesk.Size = new System.Drawing.Size(1062, 618);
             this.DrawingDesk.TabIndex = 0;
             this.DrawingDesk.TabStop = false;
+            this.DrawingDesk.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DrawingDesk_MouseClick);
             // 
             // GraphInformation
             // 
@@ -58,15 +59,16 @@
             this.GraphInformation.Size = new System.Drawing.Size(294, 382);
             this.GraphInformation.TabIndex = 1;
             // 
-            // button1
+            // choseStartingPointBtn
             // 
-            this.button1.ForeColor = System.Drawing.Color.Green;
-            this.button1.Location = new System.Drawing.Point(1081, 13);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(294, 34);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Wybierz punkt startowy.";
-            this.button1.UseVisualStyleBackColor = true;
+            this.choseStartingPointBtn.ForeColor = System.Drawing.Color.Green;
+            this.choseStartingPointBtn.Location = new System.Drawing.Point(1081, 13);
+            this.choseStartingPointBtn.Name = "choseStartingPointBtn";
+            this.choseStartingPointBtn.Size = new System.Drawing.Size(294, 34);
+            this.choseStartingPointBtn.TabIndex = 5;
+            this.choseStartingPointBtn.Text = "Wybierz punkt startowy.";
+            this.choseStartingPointBtn.UseVisualStyleBackColor = true;
+            this.choseStartingPointBtn.Click += new System.EventHandler(this.choseStartingPointBtn_Click);
             // 
             // loadGraphFromFileBtn
             // 
@@ -78,34 +80,35 @@
             this.loadGraphFromFileBtn.UseVisualStyleBackColor = true;
             this.loadGraphFromFileBtn.Click += new System.EventHandler(this.loadGraphFromFileBtn_Click);
             // 
-            // button3
+            // beginBtn
             // 
-            this.button3.Enabled = false;
-            this.button3.Location = new System.Drawing.Point(1081, 93);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(294, 34);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "Rozpocznij!";
-            this.button3.UseVisualStyleBackColor = true;
+            this.beginBtn.Enabled = false;
+            this.beginBtn.Location = new System.Drawing.Point(1081, 93);
+            this.beginBtn.Name = "beginBtn";
+            this.beginBtn.Size = new System.Drawing.Size(294, 34);
+            this.beginBtn.TabIndex = 9;
+            this.beginBtn.Text = "Rozpocznij!";
+            this.beginBtn.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // chooseEndnigPointBtn
             // 
-            this.button4.ForeColor = System.Drawing.Color.Indigo;
-            this.button4.Location = new System.Drawing.Point(1081, 53);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(294, 34);
-            this.button4.TabIndex = 10;
-            this.button4.Text = "Wybierz punkt końcowy.";
-            this.button4.UseVisualStyleBackColor = true;
+            this.chooseEndnigPointBtn.ForeColor = System.Drawing.Color.Indigo;
+            this.chooseEndnigPointBtn.Location = new System.Drawing.Point(1081, 53);
+            this.chooseEndnigPointBtn.Name = "chooseEndnigPointBtn";
+            this.chooseEndnigPointBtn.Size = new System.Drawing.Size(294, 34);
+            this.chooseEndnigPointBtn.TabIndex = 10;
+            this.chooseEndnigPointBtn.Text = "Wybierz punkt końcowy.";
+            this.chooseEndnigPointBtn.UseVisualStyleBackColor = true;
+            this.chooseEndnigPointBtn.Click += new System.EventHandler(this.chooseEndnigPointBtn_Click);
             // 
-            // button6
+            // saveGraphBtn
             // 
-            this.button6.Location = new System.Drawing.Point(1080, 173);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(294, 34);
-            this.button6.TabIndex = 11;
-            this.button6.Text = "Zapisz graf do pliku.\r\n";
-            this.button6.UseVisualStyleBackColor = true;
+            this.saveGraphBtn.Location = new System.Drawing.Point(1080, 173);
+            this.saveGraphBtn.Name = "saveGraphBtn";
+            this.saveGraphBtn.Size = new System.Drawing.Size(294, 34);
+            this.saveGraphBtn.TabIndex = 11;
+            this.saveGraphBtn.Text = "Zapisz graf do pliku.\r\n";
+            this.saveGraphBtn.UseVisualStyleBackColor = true;
             // 
             // clearDrawingDeskBtn
             // 
@@ -125,11 +128,11 @@
             this.BackColor = System.Drawing.Color.LightSkyBlue;
             this.ClientSize = new System.Drawing.Size(1387, 641);
             this.Controls.Add(this.clearDrawingDeskBtn);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.saveGraphBtn);
+            this.Controls.Add(this.chooseEndnigPointBtn);
+            this.Controls.Add(this.beginBtn);
             this.Controls.Add(this.loadGraphFromFileBtn);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.choseStartingPointBtn);
             this.Controls.Add(this.GraphInformation);
             this.Controls.Add(this.DrawingDesk);
             this.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -146,11 +149,11 @@
 
         private System.Windows.Forms.PictureBox DrawingDesk;
         private System.Windows.Forms.ListBox GraphInformation;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button choseStartingPointBtn;
         private System.Windows.Forms.Button loadGraphFromFileBtn;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button beginBtn;
+        private System.Windows.Forms.Button chooseEndnigPointBtn;
+        private System.Windows.Forms.Button saveGraphBtn;
         private System.Windows.Forms.Button clearDrawingDeskBtn;
     }
 }
