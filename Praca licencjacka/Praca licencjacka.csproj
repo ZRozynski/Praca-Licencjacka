@@ -54,9 +54,11 @@
     </Compile>
     <Compile Include="Edge.cs" />
     <Compile Include="FileLoader.cs" />
+    <Compile Include="FileSaver.cs" />
     <Compile Include="Graph.cs" />
     <Compile Include="GraphLoader.cs" />
     <Compile Include="GraphManager.cs" />
+    <Compile Include="GraphSaver.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

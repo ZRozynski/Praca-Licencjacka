@@ -153,10 +153,16 @@ namespace Praca_licencjacka
             first.X += 12; first.Y += 12;
             using(Graphics myGraphics = Graphics.FromImage(this.DrawingDesk.Image))
             {
-                Pen myPen = new Pen(new SolidBrush(Color.Green),5);
+                Pen myPen = new Pen(new SolidBrush(Color.Indigo),2);
                 myGraphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
                 myGraphics.DrawLine(myPen, first, second);
             }
+        }
+
+        private void saveGraphBtn_Click(object sender, EventArgs e)
+        {
+            GraphSaver gSaver = new GraphSaver();
+            gSaver.SaveGraph();
         }
     }
 }

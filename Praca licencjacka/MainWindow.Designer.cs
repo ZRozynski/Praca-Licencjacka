@@ -112,6 +112,7 @@
             this.saveGraphBtn.TabIndex = 11;
             this.saveGraphBtn.Text = "Zapisz graf do pliku.\r\n";
             this.saveGraphBtn.UseVisualStyleBackColor = true;
+            this.saveGraphBtn.Click += new System.EventHandler(this.saveGraphBtn_Click);
             // 
             // clearDrawingDeskBtn
             // 
