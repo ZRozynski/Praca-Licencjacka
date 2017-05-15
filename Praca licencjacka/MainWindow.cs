@@ -55,6 +55,7 @@ namespace Praca_licencjacka
             {
                 this._graphManager.ClearGraph();
                 this._graphManager.Redraw();
+                this._graphManager.UpdateGraphInformation();
             }
         }
 
@@ -65,6 +66,8 @@ namespace Praca_licencjacka
             GraphLoader graphLoader = new GraphLoader();
             graphLoader.LoadGraphFromFileStream(fileLoader.ShowDialogAndGetSelectedFile());
             this._graphManager.Redraw();
+            this._graphManager.UpdateGraphInformation();
+            
         }
 
         private void DrawingDesk_MouseClick(object sender, MouseEventArgs e)
@@ -119,20 +122,20 @@ namespace Praca_licencjacka
                 this._graphManager.Unmark(selectedVertex);
             }
             this._graphManager.Redraw();
+            this._graphManager.UpdateGraphInformation();
 
         }
 
         private void DrawingDesk_MouseMove(object sender, MouseEventArgs e)
         {
             if (this._mouseButtonClicked && this._vertexSelected) {
- 
-                this._graphManager.Redraw();
                 Vertex selected = this._graphManager.GetSelected();
                 if (selected == null)
                     return;
                 Point selectedPosition = selected.GetVertexPosition();
+                this._graphManager.Redraw();
                 this.DrawLine(selectedPosition, e.Location);
-                Refresh();
+                this.RefreshDrawingDesk();
             }  
         }
 
@@ -150,7 +153,6 @@ namespace Praca_licencjacka
                 if(!colliding.STATUS.Equals("START") && !colliding.STATUS.Equals("END"))
                     this._graphManager.MarkSelected(clickedPoint);
             }
-            this._graphManager.Redraw();
         }
 
         public void DrawLine(Point first, Point second)

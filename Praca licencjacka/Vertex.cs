@@ -55,6 +55,8 @@ namespace Praca_licencjacka
 
         public void AddNewNeighbour(Vertex neighbour)
         {
+            if (this.Equals(neighbour) || this.GetEdgeByVertex(neighbour) != null)
+                return;
             double distanceBetween = this.CalculateDistance(neighbour);
             this._neighbours.Add(new Edge(neighbour, distanceBetween));
         }

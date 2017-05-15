@@ -24,7 +24,6 @@ namespace Praca_licencjacka
             if (graph.GetVertexColliding(coordinates) == null)
             {
                 graph.AddNewVertex(new Vertex(coordinates));
-                this._graphInformation.Items.Add(coordinates.X + " " + coordinates.Y);
             }
         }
 
@@ -113,7 +112,6 @@ namespace Praca_licencjacka
             this.DrawEdges();
             this.DrawVertexes();
             this.DrawPointNumbers();
-            this.UpdateGraphInformation();
             this.DrawTravelCosts();
             this.Refresh();
         }
@@ -166,15 +164,15 @@ namespace Praca_licencjacka
             }
         }
 
-        private void UpdateGraphInformation()
+        public void UpdateGraphInformation()
         {
             this._graphInformation.Items.Clear();
             Graph myGraph = Graph.GetInstance();
             List<Vertex> listedGraph = myGraph.ToVertexList();
-            foreach(Vertex currentVertex in listedGraph)
-            {
+            foreach (Vertex currentVertex in listedGraph)
+            {  
                 this._graphInformation.Items.Add("ID: " + currentVertex._id + ", krawędzi: " + currentVertex.GetEdges().Count + ".");
-            }
+            }     
         }
         public void DrawTravelCosts()
         {
