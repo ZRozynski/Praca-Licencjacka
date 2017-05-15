@@ -43,6 +43,7 @@
             // DrawingDesk
             // 
             this.DrawingDesk.BackColor = System.Drawing.Color.Wheat;
+            this.DrawingDesk.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DrawingDesk.Location = new System.Drawing.Point(12, 12);
             this.DrawingDesk.Name = "DrawingDesk";
             this.DrawingDesk.Size = new System.Drawing.Size(1062, 618);
@@ -55,11 +56,12 @@
             // 
             // GraphInformation
             // 
+            this.GraphInformation.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.GraphInformation.FormattingEnabled = true;
-            this.GraphInformation.ItemHeight = 18;
+            this.GraphInformation.ItemHeight = 16;
             this.GraphInformation.Location = new System.Drawing.Point(1081, 213);
             this.GraphInformation.Name = "GraphInformation";
-            this.GraphInformation.Size = new System.Drawing.Size(294, 382);
+            this.GraphInformation.Size = new System.Drawing.Size(294, 372);
             this.GraphInformation.TabIndex = 1;
             // 
             // choseStartingPointBtn

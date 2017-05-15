@@ -11,16 +11,21 @@ namespace Praca_licencjacka
     class GraphManager
     {
         private PictureBox _drawingPanel;
-        public GraphManager(PictureBox drawingPanel)
+        private ListBox _graphInformation;
+        public GraphManager(PictureBox drawingPanel, ListBox graphInformation)
         {
             this._drawingPanel = drawingPanel;
+            this._graphInformation = graphInformation;
         }
 
         public void AddNewVertex(Point coordinates)
         {
             Graph graph = Graph.GetInstance();
             if (graph.GetVertexColliding(coordinates) == null)
+            {
                 graph.AddNewVertex(new Vertex(coordinates));
+                this._graphInformation.Items.Add(coordinates.X + " " + coordinates.Y);
+            }
         }
 
         public Vertex GetStarting()
@@ -103,12 +108,28 @@ namespace Praca_licencjacka
 
         public void Redraw()
         {
+            this.ClearEdgesStatistics();
             this.ClearDrawingPanel();
             this.DrawEdges();
             this.DrawVertexes();
             this.DrawPointNumbers();
+            this.UpdateGraphInformation();
             this.DrawTravelCosts();
             this.Refresh();
+        }
+
+        private void ClearEdgesStatistics()
+        {
+            Graph graph = Graph.GetInstance();
+            List<Vertex> listedGraph = graph.ToVertexList();
+            foreach(Vertex currentVertex in listedGraph)
+            {
+                List<Edge> neighbours = currentVertex.GetEdges();
+                foreach(Edge neighbour in neighbours)
+                {
+                    neighbour._drawn = false;
+                }
+            }
         }
 
         private void ClearDrawingPanel()
@@ -137,6 +158,7 @@ namespace Praca_licencjacka
                 foreach(Vertex currentVertex in listedGraph)
                 {
                     pointNumber++;
+                    currentVertex._id = pointNumber;
                     Point currentCoords = currentVertex.GetVertexPosition();
                     currentCoords.X += 5; currentCoords.Y += 5;
                     numberDrawer.DrawString(pointNumber.ToString(), new Font("Verdana", 10), myPen, currentCoords,drawingFormat);
@@ -144,6 +166,16 @@ namespace Praca_licencjacka
             }
         }
 
+        private void UpdateGraphInformation()
+        {
+            this._graphInformation.Items.Clear();
+            Graph myGraph = Graph.GetInstance();
+            List<Vertex> listedGraph = myGraph.ToVertexList();
+            foreach(Vertex currentVertex in listedGraph)
+            {
+                this._graphInformation.Items.Add("ID: " + currentVertex._id + ", krawędzi: " + currentVertex.GetEdges().Count + ".");
+            }
+        }
         public void DrawTravelCosts()
         {
             Graph graph = Graph.GetInstance();
@@ -214,6 +246,10 @@ namespace Praca_licencjacka
                     List<Edge> neighbours = currentVertex.GetEdges();
                     foreach(Edge currentEdge in neighbours)
                     {
+                        currentEdge._drawn = true;
+                        if (currentEdge.GetDestination().GetEdgeByVertex(currentVertex)!= null &&
+                            currentEdge.GetDestination().GetEdgeByVertex(currentVertex)._drawn)
+                            continue;
                         Pen myPen = new Pen(new SolidBrush(Color.Black), 3);
                         Point startingPosition = currentVertex.GetVertexPosition();
                         Point endingPosition = currentEdge.GetDestination().GetVertexPosition();

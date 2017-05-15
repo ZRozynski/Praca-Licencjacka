@@ -8,6 +8,7 @@ namespace Praca_licencjacka
 {
     class Edge
     {
+        public bool _drawn = false;
         private Vertex _destinationVertex;
         private double _travelCost;
 

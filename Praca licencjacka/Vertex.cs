@@ -14,12 +14,14 @@ namespace Praca_licencjacka
         private List<Edge> _neighbours;
         public int vertexSizeInPixels = 25;
         public string STATUS = "NORMAL";
+        public int _id { set; get; }
 
         public Vertex(int xPos, int yPos)
         {
             this._xPos = xPos;
             this._yPos = yPos;
             this._neighbours = new List<Edge>();
+            this._id = 0;
         }
         
         public Vertex(Point coordinates)
@@ -107,7 +109,5 @@ namespace Praca_licencjacka
         {
             return this._neighbours;
         }
-
-
     }
 }

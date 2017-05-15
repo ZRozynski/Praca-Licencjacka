@@ -15,7 +15,6 @@ namespace Praca_licencjacka
         public FileLoader()
         {
             this._fileLoadingDialog = new OpenFileDialog();
-            this._fileLoadingDialog.InitialDirectory = "c:\\";
             this._fileLoadingDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             this._fileLoadingDialog.FilterIndex = 2;
             this._fileLoadingDialog.Title = "Wczytaj graf z pliku.";

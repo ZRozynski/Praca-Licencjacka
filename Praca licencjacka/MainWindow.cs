@@ -30,7 +30,7 @@ namespace Praca_licencjacka
         }
         private void InitializeGraphManager()
         {
-            this._graphManager = new GraphManager(this.DrawingDesk);
+            this._graphManager = new GraphManager(this.DrawingDesk, this.GraphInformation);
         }
 
         private void RefreshDrawingDesk()
@@ -54,15 +54,17 @@ namespace Praca_licencjacka
             if (askingWindow.IsToRemove())
             {
                 this._graphManager.ClearGraph();
-                this.ClearDrawingDesk();
+                this._graphManager.Redraw();
             }
         }
 
         private void loadGraphFromFileBtn_Click(object sender, EventArgs e)
         {
+            this._graphManager.ClearGraph();
             FileLoader fileLoader = new FileLoader();
             GraphLoader graphLoader = new GraphLoader();
             graphLoader.LoadGraphFromFileStream(fileLoader.ShowDialogAndGetSelectedFile());
+            this._graphManager.Redraw();
         }
 
         private void DrawingDesk_MouseClick(object sender, MouseEventArgs e)
@@ -109,8 +111,11 @@ namespace Praca_licencjacka
                 this._vertexSelected = false;
                 Vertex selectedVertex = this._graphManager.GetSelected();
                 Vertex draggedVertex = Graph.GetInstance().GetVertexColliding(clickedPoint);
-                if(draggedVertex != null && selectedVertex != null)
+                if (draggedVertex != null && selectedVertex != null)
+                {
                     selectedVertex.AddNewNeighbour(draggedVertex);
+                    draggedVertex.AddNewNeighbour(selectedVertex);
+                }
                 this._graphManager.Unmark(selectedVertex);
             }
             this._graphManager.Redraw();

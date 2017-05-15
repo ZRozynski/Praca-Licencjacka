@@ -14,7 +14,6 @@ namespace Praca_licencjacka
         public FileSaver()
         {
             this.saveDialog = new SaveFileDialog();
-            this.saveDialog.InitialDirectory = "c:\\";
             this.saveDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             this.saveDialog.FilterIndex = 2;
             this.saveDialog.Title = "Zapisz graf do pliku.";
