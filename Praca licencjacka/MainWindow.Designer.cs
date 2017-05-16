@@ -131,8 +131,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.ClientSize = new System.Drawing.Size(1387, 641);
+            this.ClientSize = new System.Drawing.Size(1362, 641);
             this.Controls.Add(this.clearDrawingDeskBtn);
             this.Controls.Add(this.saveGraphBtn);
             this.Controls.Add(this.chooseEndnigPointBtn);
@@ -145,6 +146,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
             this.Name = "MainWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Wizualizacja algorytmów wyszukiwania najkrótszej ścieżki w grafach ważonych.";
             ((System.ComponentModel.ISupportInitialize)(this.DrawingDesk)).EndInit();
             this.ResumeLayout(false);

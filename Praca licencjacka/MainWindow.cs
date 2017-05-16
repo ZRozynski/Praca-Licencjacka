@@ -20,6 +20,7 @@ namespace Praca_licencjacka
         public MainWindow()
         {
             InitializeComponent();
+            this.AutoScaleMode = AutoScaleMode.Dpi;
             this.InitializeDrawingDesk();
             this.InitializeGraphManager();
         }
