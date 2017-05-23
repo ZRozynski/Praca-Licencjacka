@@ -9,6 +9,7 @@ namespace Praca_licencjacka
     class Edge
     {
         public bool _drawn = false;
+        public bool _textDrawn = false;
         private Vertex _destinationVertex;
         private double _travelCost;
 
@@ -32,6 +33,11 @@ namespace Praca_licencjacka
         public double GetTravelCost()
         {
             return this._travelCost;
+        }
+
+        public bool IsChild(Vertex possibleChild)
+        {
+            return this._destinationVertex.IsChild(possibleChild);
         }
 
         public Vertex GetDestination()

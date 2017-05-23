@@ -28,6 +28,7 @@ namespace Praca_licencjacka
         private void InitializeDrawingDesk()
         {
             this.DrawingDesk.Image = new Bitmap(this.DrawingDesk.Width, this.DrawingDesk.Height);
+            this.txtInterval.Text = "100 milisekund.";
         }
         private void InitializeGraphManager()
         {
@@ -171,6 +172,18 @@ namespace Praca_licencjacka
         {
             GraphSaver gSaver = new GraphSaver();
             gSaver.SaveGraph();
+        }
+
+        private void beginBtn_Click(object sender, EventArgs e)
+        {
+            this._graphManager.RunAlgorithm();
+        }
+
+        private void intervalTB_ValueChanged(object sender, EventArgs e)
+        {
+            int value = this.intervalTB.Value;
+            this.txtInterval.Text = value.ToString() + " milisekund.";
+            this._graphManager.SetTimeInterval(value);
         }
     }
 }

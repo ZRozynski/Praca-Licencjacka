@@ -7,14 +7,23 @@ using System.Threading.Tasks;
 
 namespace Praca_licencjacka
 {
-    class Vertex
+    class Vertex : IComparable<Vertex>
     {
         private int _xPos;
         private int _yPos;
         private List<Edge> _neighbours;
         public int vertexSizeInPixels = 25;
         public string STATUS = "NORMAL";
+        public bool ALGORITHM_BOUND = false; 
+        public double DISTANCE;
+        public Vertex PARENT;
+        public bool VISITED;
         public int _id { set; get; }
+
+        public bool IsChild(Vertex another)
+        {
+            return PARENT == another;
+        }
 
         public Vertex(int xPos, int yPos)
         {
@@ -110,6 +119,11 @@ namespace Praca_licencjacka
         public List<Edge> GetEdges()
         {
             return this._neighbours;
+        }
+
+        public int CompareTo(Vertex another)
+        {
+            return this.DISTANCE.CompareTo(another.DISTANCE);
         }
     }
 }

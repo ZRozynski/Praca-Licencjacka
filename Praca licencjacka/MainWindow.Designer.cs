@@ -37,7 +37,11 @@
             this.chooseEndnigPointBtn = new System.Windows.Forms.Button();
             this.saveGraphBtn = new System.Windows.Forms.Button();
             this.clearDrawingDeskBtn = new System.Windows.Forms.Button();
+            this.intervalTB = new System.Windows.Forms.TrackBar();
+            this.LBL_INTERVAL = new System.Windows.Forms.Label();
+            this.txtInterval = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DrawingDesk)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.intervalTB)).BeginInit();
             this.SuspendLayout();
             // 
             // DrawingDesk
@@ -61,7 +65,7 @@
             this.GraphInformation.ItemHeight = 16;
             this.GraphInformation.Location = new System.Drawing.Point(1081, 213);
             this.GraphInformation.Name = "GraphInformation";
-            this.GraphInformation.Size = new System.Drawing.Size(294, 372);
+            this.GraphInformation.Size = new System.Drawing.Size(294, 404);
             this.GraphInformation.TabIndex = 1;
             // 
             // choseStartingPointBtn
@@ -87,13 +91,13 @@
             // 
             // beginBtn
             // 
-            this.beginBtn.Enabled = false;
             this.beginBtn.Location = new System.Drawing.Point(1081, 93);
             this.beginBtn.Name = "beginBtn";
             this.beginBtn.Size = new System.Drawing.Size(294, 34);
             this.beginBtn.TabIndex = 9;
             this.beginBtn.Text = "Rozpocznij!";
             this.beginBtn.UseVisualStyleBackColor = true;
+            this.beginBtn.Click += new System.EventHandler(this.beginBtn_Click);
             // 
             // chooseEndnigPointBtn
             // 
@@ -119,7 +123,7 @@
             // clearDrawingDeskBtn
             // 
             this.clearDrawingDeskBtn.ForeColor = System.Drawing.Color.DarkRed;
-            this.clearDrawingDeskBtn.Location = new System.Drawing.Point(1081, 596);
+            this.clearDrawingDeskBtn.Location = new System.Drawing.Point(1081, 631);
             this.clearDrawingDeskBtn.Name = "clearDrawingDeskBtn";
             this.clearDrawingDeskBtn.Size = new System.Drawing.Size(294, 34);
             this.clearDrawingDeskBtn.TabIndex = 12;
@@ -127,13 +131,46 @@
             this.clearDrawingDeskBtn.UseVisualStyleBackColor = true;
             this.clearDrawingDeskBtn.Click += new System.EventHandler(this.clearDrawingDeskBtn_Click);
             // 
+            // intervalTB
+            // 
+            this.intervalTB.LargeChange = 50;
+            this.intervalTB.Location = new System.Drawing.Point(12, 636);
+            this.intervalTB.Maximum = 2000;
+            this.intervalTB.Minimum = 100;
+            this.intervalTB.Name = "intervalTB";
+            this.intervalTB.Size = new System.Drawing.Size(349, 45);
+            this.intervalTB.SmallChange = 25;
+            this.intervalTB.TabIndex = 13;
+            this.intervalTB.Value = 100;
+            this.intervalTB.ValueChanged += new System.EventHandler(this.intervalTB_ValueChanged);
+            // 
+            // LBL_INTERVAL
+            // 
+            this.LBL_INTERVAL.AutoSize = true;
+            this.LBL_INTERVAL.Location = new System.Drawing.Point(367, 639);
+            this.LBL_INTERVAL.Name = "LBL_INTERVAL";
+            this.LBL_INTERVAL.Size = new System.Drawing.Size(97, 18);
+            this.LBL_INTERVAL.TabIndex = 14;
+            this.LBL_INTERVAL.Text = "Interwał: ";
+            // 
+            // txtInterval
+            // 
+            this.txtInterval.AutoSize = true;
+            this.txtInterval.Location = new System.Drawing.Point(470, 639);
+            this.txtInterval.Name = "txtInterval";
+            this.txtInterval.Size = new System.Drawing.Size(0, 18);
+            this.txtInterval.TabIndex = 15;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.ClientSize = new System.Drawing.Size(1362, 641);
+            this.ClientSize = new System.Drawing.Size(1385, 677);
+            this.Controls.Add(this.txtInterval);
+            this.Controls.Add(this.LBL_INTERVAL);
+            this.Controls.Add(this.intervalTB);
             this.Controls.Add(this.clearDrawingDeskBtn);
             this.Controls.Add(this.saveGraphBtn);
             this.Controls.Add(this.chooseEndnigPointBtn);
@@ -149,7 +186,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Wizualizacja algorytmów wyszukiwania najkrótszej ścieżki w grafach ważonych.";
             ((System.ComponentModel.ISupportInitialize)(this.DrawingDesk)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.intervalTB)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -163,6 +202,9 @@
         private System.Windows.Forms.Button chooseEndnigPointBtn;
         private System.Windows.Forms.Button saveGraphBtn;
         private System.Windows.Forms.Button clearDrawingDeskBtn;
+        private System.Windows.Forms.TrackBar intervalTB;
+        private System.Windows.Forms.Label LBL_INTERVAL;
+        private System.Windows.Forms.Label txtInterval;
     }
 }
 
