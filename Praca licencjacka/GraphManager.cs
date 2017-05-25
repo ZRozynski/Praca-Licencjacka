@@ -236,6 +236,7 @@ namespace Praca_licencjacka
         }
         public void DrawTravelCosts()
         {
+            this.ClearTravelCostStatistics();
             Graph graph = Graph.GetInstance();
             List<Vertex> listedGraph = graph.ToVertexList();
             using (Graphics costsDrawer = Graphics.FromImage(this._drawingPanel.Image))
@@ -427,6 +428,20 @@ namespace Praca_licencjacka
             {
                 focused.PARENT.ALGORITHM_BOUND = true;
                 focused = focused.PARENT;
+            }
+        }
+
+        private void ClearTravelCostStatistics()
+        {
+            Graph graph = Graph.GetInstance();
+            List<Vertex> graphListed = graph.ToVertexList();
+            foreach(Vertex currentVertex in graphListed)
+            {
+                List<Edge> neighbours = currentVertex.GetEdges();
+                foreach(Edge currentEdge in neighbours)
+                {
+                    currentEdge._textDrawn = false;
+                }
             }
         }
     }
