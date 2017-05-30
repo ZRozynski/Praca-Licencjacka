@@ -22,9 +22,20 @@ namespace Praca_licencjacka
             this.algorithmThread = new Thread(this.ProceedDijkstra);
         }
 
-        public void RunAlgorithm()
+        public void RunAlgorithm(string algorithmName)
         {
-            this.algorithmThread = new Thread(this.ProceedDijkstra);
+            if (algorithmName.Equals("DIJKSTRA"))
+            {
+                this.algorithmThread = new Thread(this.ProceedDijkstra);
+            }
+            else if (algorithmName.Equals("BFORD"))
+            {
+                this.algorithmThread = new Thread(this.ProceedFloydWarshall);
+            }
+            else if (algorithmName.Equals("FWARSHALL"))
+            {
+                this.algorithmThread = new Thread(this.ProceedFloydWarshall);
+            }
             this.algorithmThread.Start();
         }
 
@@ -173,6 +184,18 @@ namespace Praca_licencjacka
             this.Refresh();
         }
 
+        private void ClearVertexesStatistics()
+        {
+            Graph graph = Graph.GetInstance();
+            List<Vertex> listedGraph = graph.ToVertexList();
+            foreach (Vertex currentVertex in listedGraph)
+            {
+                currentVertex.ALGORITHM_BOUND = false;
+                currentVertex.DISTANCE = Double.MaxValue;
+                currentVertex.PARENT = null;
+            }
+        }
+
         private void ClearEdgesStatistics()
         {
             Graph graph = Graph.GetInstance();
@@ -250,10 +273,8 @@ namespace Praca_licencjacka
                     List<Edge> neighbours = currentVertex.GetEdges();
                     foreach(Edge currentEdge in neighbours)
                     {
-                        if(currentEdge.GetDestination().GetEdgeByVertex(currentVertex) != null &&
-                            currentEdge.GetDestination().GetEdgeByVertex(currentVertex)._textDrawn &&
-                            !currentEdge.IsChild(currentVertex))
-                                continue;
+                        if (!currentEdge.CanBeDrawn(currentVertex))
+                            continue;
                         currentEdge._textDrawn = true;
                         Vertex destination = currentEdge.GetDestination();
                         if (currentEdge.IsChild(currentVertex) && (currentEdge.GetDestination().STATUS.Equals("FOCUSED") ||
@@ -317,11 +338,10 @@ namespace Praca_licencjacka
                     List<Edge> neighbours = currentVertex.GetEdges();
                     foreach(Edge currentEdge in neighbours)
                     {
-                        currentEdge._drawn = true;
-                        if (currentEdge.GetDestination().GetEdgeByVertex(currentVertex) != null &&
-                            currentEdge.GetDestination().GetEdgeByVertex(currentVertex)._drawn &&
-                            !currentEdge.IsChild(currentVertex))
+                        
+                        if (!currentEdge.CanBeDrawn(currentVertex))
                             continue;
+                        currentEdge._drawn = true;
                         Pen myPen;
                         if (currentEdge.IsChild(currentVertex) && (currentEdge.GetDestination().STATUS.Equals("FOCUSED") ||
                             currentEdge.GetDestination().ALGORITHM_BOUND))
@@ -347,7 +367,7 @@ namespace Praca_licencjacka
             if (vertex.ALGORITHM_BOUND)
                 return new SolidBrush(Color.Green);
             else if (vertex.STATUS.Equals("START"))
-                return new SolidBrush(Color.Green);
+                return new SolidBrush(Color.DodgerBlue);
             else if (vertex.STATUS.Equals("END"))
                 return new SolidBrush(Color.Indigo);
             else if (vertex.STATUS.Equals("SELECTED"))
@@ -420,6 +440,46 @@ namespace Praca_licencjacka
                 }
             }
             MessageBox.Show("Najkrótsza ścieżka: "+ Math.Round(ending.DISTANCE).ToString());
+            this.ClearEdgesStatistics();
+            this.ClearVertexesStatistics();
+        }
+
+        public void ProceedFloydWarshall()
+        {
+            double[,] adjacencyMatrix = Graph.GetInstance().GetAdjacencyMatrix();
+            int graphSize = Graph.GetInstance().GetSize();
+            for(int i = 0; i < graphSize; i++)
+            {
+                for(int j = 0; j < graphSize; j++)
+                {
+                    for(int k = 0; k < graphSize; k++)
+                    {
+                        Vertex first, second, third;
+                        first = Graph.GetInstance().GetVertexById(i + 1);
+                        second = Graph.GetInstance().GetVertexById(j + 1);
+                        third = Graph.GetInstance().GetVertexById(k + 1);
+                        first.ALGORITHM_BOUND = true;
+                        second.ALGORITHM_BOUND = true;
+                        third.ALGORITHM_BOUND = true;
+                        double actualValue = adjacencyMatrix[i, j];
+                        double proposedValue = adjacencyMatrix[i, k] +
+                            adjacencyMatrix[k, j];
+                        if (actualValue > proposedValue)
+                            adjacencyMatrix[i, j] = proposedValue;
+                        Thread.Sleep(this.timeInterval);
+                        this.Redraw();
+
+                        first.ALGORITHM_BOUND = false;
+                        second.ALGORITHM_BOUND = false;
+                        third.ALGORITHM_BOUND = false;
+                    }
+                }
+            }
+            int startingID = this.GetStarting()._id;
+            int endingID = this.GetEnding()._id;
+            MessageBox.Show("Najkrótsza ścieżka: " + adjacencyMatrix[startingID - 1 , endingID - 1].ToString());
+            this.ClearEdgesStatistics();
+            this.ClearVertexesStatistics();
         }
 
         private void MarkAllChildren(Vertex focused)
@@ -443,6 +503,11 @@ namespace Praca_licencjacka
                     currentEdge._textDrawn = false;
                 }
             }
+        }
+
+        public double[,] GetAdjacenyMatrix()
+        {
+            return Graph.GetInstance().GetAdjacencyMatrix();
         }
     }
 }

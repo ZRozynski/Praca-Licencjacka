@@ -40,6 +40,9 @@
             this.intervalTB = new System.Windows.Forms.TrackBar();
             this.LBL_INTERVAL = new System.Windows.Forms.Label();
             this.txtInterval = new System.Windows.Forms.Label();
+            this.chosenAlgorithmDijkstra = new System.Windows.Forms.CheckBox();
+            this.chosenAlgorithmBFord = new System.Windows.Forms.CheckBox();
+            this.chosenAlgorithmFWarshall = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DrawingDesk)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.intervalTB)).BeginInit();
             this.SuspendLayout();
@@ -147,19 +150,54 @@
             // LBL_INTERVAL
             // 
             this.LBL_INTERVAL.AutoSize = true;
+            this.LBL_INTERVAL.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.LBL_INTERVAL.Location = new System.Drawing.Point(367, 639);
             this.LBL_INTERVAL.Name = "LBL_INTERVAL";
-            this.LBL_INTERVAL.Size = new System.Drawing.Size(97, 18);
+            this.LBL_INTERVAL.Size = new System.Drawing.Size(78, 16);
             this.LBL_INTERVAL.TabIndex = 14;
             this.LBL_INTERVAL.Text = "Interwał: ";
             // 
             // txtInterval
             // 
             this.txtInterval.AutoSize = true;
-            this.txtInterval.Location = new System.Drawing.Point(470, 639);
+            this.txtInterval.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.txtInterval.Location = new System.Drawing.Point(445, 639);
             this.txtInterval.Name = "txtInterval";
-            this.txtInterval.Size = new System.Drawing.Size(0, 18);
+            this.txtInterval.Size = new System.Drawing.Size(0, 16);
             this.txtInterval.TabIndex = 15;
+            // 
+            // chosenAlgorithmDijkstra
+            // 
+            this.chosenAlgorithmDijkstra.AutoSize = true;
+            this.chosenAlgorithmDijkstra.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.chosenAlgorithmDijkstra.Location = new System.Drawing.Point(577, 638);
+            this.chosenAlgorithmDijkstra.Name = "chosenAlgorithmDijkstra";
+            this.chosenAlgorithmDijkstra.Size = new System.Drawing.Size(106, 20);
+            this.chosenAlgorithmDijkstra.TabIndex = 16;
+            this.chosenAlgorithmDijkstra.Text = "Alg. Dijkstry";
+            this.chosenAlgorithmDijkstra.UseVisualStyleBackColor = true;
+            // 
+            // chosenAlgorithmBFord
+            // 
+            this.chosenAlgorithmBFord.AutoSize = true;
+            this.chosenAlgorithmBFord.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.chosenAlgorithmBFord.Location = new System.Drawing.Point(689, 638);
+            this.chosenAlgorithmBFord.Name = "chosenAlgorithmBFord";
+            this.chosenAlgorithmBFord.Size = new System.Drawing.Size(158, 20);
+            this.chosenAlgorithmBFord.TabIndex = 17;
+            this.chosenAlgorithmBFord.Text = "Alg. Bellmana-Forda";
+            this.chosenAlgorithmBFord.UseVisualStyleBackColor = true;
+            // 
+            // chosenAlgorithmFWarshall
+            // 
+            this.chosenAlgorithmFWarshall.AutoSize = true;
+            this.chosenAlgorithmFWarshall.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.chosenAlgorithmFWarshall.Location = new System.Drawing.Point(853, 638);
+            this.chosenAlgorithmFWarshall.Name = "chosenAlgorithmFWarshall";
+            this.chosenAlgorithmFWarshall.Size = new System.Drawing.Size(169, 20);
+            this.chosenAlgorithmFWarshall.TabIndex = 18;
+            this.chosenAlgorithmFWarshall.Text = "Alg. Floyda-Warshalla";
+            this.chosenAlgorithmFWarshall.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
@@ -168,6 +206,9 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.LightSkyBlue;
             this.ClientSize = new System.Drawing.Size(1385, 677);
+            this.Controls.Add(this.chosenAlgorithmFWarshall);
+            this.Controls.Add(this.chosenAlgorithmBFord);
+            this.Controls.Add(this.chosenAlgorithmDijkstra);
             this.Controls.Add(this.txtInterval);
             this.Controls.Add(this.LBL_INTERVAL);
             this.Controls.Add(this.intervalTB);
@@ -205,6 +246,9 @@
         private System.Windows.Forms.TrackBar intervalTB;
         private System.Windows.Forms.Label LBL_INTERVAL;
         private System.Windows.Forms.Label txtInterval;
+        private System.Windows.Forms.CheckBox chosenAlgorithmDijkstra;
+        private System.Windows.Forms.CheckBox chosenAlgorithmBFord;
+        private System.Windows.Forms.CheckBox chosenAlgorithmFWarshall;
     }
 }
 

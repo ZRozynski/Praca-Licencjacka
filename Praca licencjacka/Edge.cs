@@ -39,7 +39,12 @@ namespace Praca_licencjacka
         {
             return this._destinationVertex.IsChild(possibleChild);
         }
-
+        public bool CanBeDrawn(Vertex destination)
+        {
+            return !(this.GetDestination().GetEdgeByVertex(destination) != null &&
+                    this.GetDestination().GetEdgeByVertex(destination)._drawn &&
+                    !this.IsChild(destination));
+        }
         public Vertex GetDestination()
         {
             return this._destinationVertex;

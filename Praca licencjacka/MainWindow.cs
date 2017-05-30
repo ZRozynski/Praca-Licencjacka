@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Praca_licencjacka
 {
     public partial class MainWindow : Form
@@ -16,7 +17,6 @@ namespace Praca_licencjacka
         string MODE = "OPERATION";
         bool _mouseButtonClicked = false;
         bool _vertexSelected = false;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -50,7 +50,7 @@ namespace Praca_licencjacka
         }
 
         private void clearDrawingDeskBtn_Click(object sender, EventArgs e)
-        {
+        { 
             AskingAboutGraphRemovalWindow askingWindow = new AskingAboutGraphRemovalWindow();
             askingWindow.ShowDialog();
             if (askingWindow.IsToRemove())
@@ -176,7 +176,8 @@ namespace Praca_licencjacka
 
         private void beginBtn_Click(object sender, EventArgs e)
         {
-            this._graphManager.RunAlgorithm();
+            string algorithm = this.GetCheckedAlgorithm();
+            this._graphManager.RunAlgorithm(algorithm);
         }
 
         private void intervalTB_ValueChanged(object sender, EventArgs e)
@@ -184,6 +185,16 @@ namespace Praca_licencjacka
             int value = this.intervalTB.Value;
             this.txtInterval.Text = value.ToString() + " milisekund.";
             this._graphManager.SetTimeInterval(value);
+        }
+        private string GetCheckedAlgorithm()
+        {
+            if (this.chosenAlgorithmDijkstra.Checked)
+                return "DIJKSTRA";
+            else if (this.chosenAlgorithmBFord.Checked)
+                return "BFORD";
+            else if (this.chosenAlgorithmFWarshall.Checked)
+                return "FWARSHALL";
+            else return String.Empty;
         }
     }
 }
