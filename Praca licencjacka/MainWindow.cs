@@ -29,6 +29,7 @@ namespace Praca_licencjacka
         {
             this.DrawingDesk.Image = new Bitmap(this.DrawingDesk.Width, this.DrawingDesk.Height);
             this.txtInterval.Text = "100 milisekund.";
+            this.chosenAlgorithmDijkstra.Checked = true;
         }
         private void InitializeGraphManager()
         {
@@ -195,6 +196,33 @@ namespace Praca_licencjacka
             else if (this.chosenAlgorithmFWarshall.Checked)
                 return "FWARSHALL";
             else return String.Empty;
+        }
+
+        private void chosenAlgorithmDijkstra_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chosenAlgorithmDijkstra.Checked)
+            {
+                chosenAlgorithmFWarshall.Checked = false;
+                chosenAlgorithmBFord.Checked = false;
+            }
+        }
+
+        private void chosenAlgorithmBFord_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chosenAlgorithmBFord.Checked)
+            {
+                chosenAlgorithmDijkstra.Checked = false;
+                chosenAlgorithmFWarshall.Checked = false;
+            }
+        }
+
+        private void chosenAlgorithmFWarshall_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chosenAlgorithmFWarshall.Checked)
+            {
+                chosenAlgorithmBFord.Checked = false;
+                chosenAlgorithmDijkstra.Checked = false;
+            }
         }
     }
 }

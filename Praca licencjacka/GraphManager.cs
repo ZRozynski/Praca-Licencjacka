@@ -193,6 +193,7 @@ namespace Praca_licencjacka
                 currentVertex.ALGORITHM_BOUND = false;
                 currentVertex.DISTANCE = Double.MaxValue;
                 currentVertex.PARENT = null;
+                currentVertex.VISITED = false;
             }
         }
 
@@ -217,7 +218,7 @@ namespace Praca_licencjacka
                 myGraphics.Clear(Color.Wheat);
             }
         }
-
+   
         private void Refresh()
         {
             if (this._drawingPanel.InvokeRequired)
@@ -367,7 +368,7 @@ namespace Praca_licencjacka
             if (vertex.ALGORITHM_BOUND)
                 return new SolidBrush(Color.Green);
             else if (vertex.STATUS.Equals("START"))
-                return new SolidBrush(Color.DodgerBlue);
+                return new SolidBrush(Color.Chocolate);
             else if (vertex.STATUS.Equals("END"))
                 return new SolidBrush(Color.Indigo);
             else if (vertex.STATUS.Equals("SELECTED"))
@@ -442,42 +443,57 @@ namespace Praca_licencjacka
             MessageBox.Show("Najkrótsza ścieżka: "+ Math.Round(ending.DISTANCE).ToString());
             this.ClearEdgesStatistics();
             this.ClearVertexesStatistics();
+            this.MarkEnding(ending.GetVertexPosition());
         }
 
         public void ProceedFloydWarshall()
         {
             double[,] adjacencyMatrix = Graph.GetInstance().GetAdjacencyMatrix();
             int graphSize = Graph.GetInstance().GetSize();
-            for(int i = 0; i < graphSize; i++)
+            AlgorithmInformationDialog algInfoDialog = new AlgorithmInformationDialog(adjacencyMatrix);
+            for (int k = 0; k < graphSize; k++)
             {
-                for(int j = 0; j < graphSize; j++)
+                for(int i = 0; i < graphSize; i++)
                 {
-                    for(int k = 0; k < graphSize; k++)
+                    for(int j = 0; j < graphSize; j++)
                     {
+                        if (algInfoDialog.isfinishedByUser)
+                            return;
+                        if (adjacencyMatrix[k, j].Equals(Double.MaxValue) || adjacencyMatrix[i, k].Equals(Double.MaxValue))
+                            continue;
+                        algInfoDialog.ShowCurrentAlgorithmProcess(i + 1, k + 1, j + 1);
                         Vertex first, second, third;
-                        first = Graph.GetInstance().GetVertexById(i + 1);
-                        second = Graph.GetInstance().GetVertexById(j + 1);
-                        third = Graph.GetInstance().GetVertexById(k + 1);
+                        first = Graph.GetInstance().GetVertexById(k + 1);
+                        second = Graph.GetInstance().GetVertexById(i + 1);
+                        third = Graph.GetInstance().GetVertexById(j + 1);
+
                         first.ALGORITHM_BOUND = true;
                         second.ALGORITHM_BOUND = true;
                         third.ALGORITHM_BOUND = true;
-                        double actualValue = adjacencyMatrix[i, j];
-                        double proposedValue = adjacencyMatrix[i, k] +
-                            adjacencyMatrix[k, j];
-                        if (actualValue > proposedValue)
-                            adjacencyMatrix[i, j] = proposedValue;
-                        Thread.Sleep(this.timeInterval);
-                        this.Redraw();
 
+                        double actualValue = Math.Round(adjacencyMatrix[i, j]);
+                        double proposedValue = Math.Round((adjacencyMatrix[i, k] +
+                            adjacencyMatrix[k, j]));
+                        if (actualValue > proposedValue)
+                        {
+                            algInfoDialog.ShowAnswer(true);
+                            adjacencyMatrix[i, j] = proposedValue;
+                        }
+                        else algInfoDialog.ShowAnswer(false);
+                        this.Redraw();
                         first.ALGORITHM_BOUND = false;
                         second.ALGORITHM_BOUND = false;
                         third.ALGORITHM_BOUND = false;
+                        algInfoDialog.ShowDialog();
                     }
                 }
             }
             int startingID = this.GetStarting()._id;
             int endingID = this.GetEnding()._id;
-            MessageBox.Show("Najkrótsza ścieżka: " + adjacencyMatrix[startingID - 1 , endingID - 1].ToString());
+            double travelCost = adjacencyMatrix[startingID - 1, endingID - 1];
+            if (!travelCost.Equals(Double.MaxValue))
+                MessageBox.Show("Najkrótsza ścieżka: " + Math.Round(travelCost).ToString());
+            else MessageBox.Show("Ścieżka nie istnieje!");
             this.ClearEdgesStatistics();
             this.ClearVertexesStatistics();
         }

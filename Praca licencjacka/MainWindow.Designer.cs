@@ -73,7 +73,7 @@
             // 
             // choseStartingPointBtn
             // 
-            this.choseStartingPointBtn.ForeColor = System.Drawing.Color.Green;
+            this.choseStartingPointBtn.ForeColor = System.Drawing.Color.Chocolate;
             this.choseStartingPointBtn.Location = new System.Drawing.Point(1081, 13);
             this.choseStartingPointBtn.Name = "choseStartingPointBtn";
             this.choseStartingPointBtn.Size = new System.Drawing.Size(294, 34);
@@ -176,6 +176,7 @@
             this.chosenAlgorithmDijkstra.TabIndex = 16;
             this.chosenAlgorithmDijkstra.Text = "Alg. Dijkstry";
             this.chosenAlgorithmDijkstra.UseVisualStyleBackColor = true;
+            this.chosenAlgorithmDijkstra.CheckedChanged += new System.EventHandler(this.chosenAlgorithmDijkstra_CheckedChanged);
             // 
             // chosenAlgorithmBFord
             // 
@@ -187,6 +188,7 @@
             this.chosenAlgorithmBFord.TabIndex = 17;
             this.chosenAlgorithmBFord.Text = "Alg. Bellmana-Forda";
             this.chosenAlgorithmBFord.UseVisualStyleBackColor = true;
+            this.chosenAlgorithmBFord.CheckedChanged += new System.EventHandler(this.chosenAlgorithmBFord_CheckedChanged);
             // 
             // chosenAlgorithmFWarshall
             // 
@@ -198,6 +200,7 @@
             this.chosenAlgorithmFWarshall.TabIndex = 18;
             this.chosenAlgorithmFWarshall.Text = "Alg. Floyda-Warshalla";
             this.chosenAlgorithmFWarshall.UseVisualStyleBackColor = true;
+            this.chosenAlgorithmFWarshall.CheckedChanged += new System.EventHandler(this.chosenAlgorithmFWarshall_CheckedChanged);
             // 
             // MainWindow
             // 
