@@ -30,7 +30,7 @@ namespace Praca_licencjacka
             }
             else if (algorithmName.Equals("BFORD"))
             {
-                this.algorithmThread = new Thread(this.ProceedFloydWarshall);
+                this.algorithmThread = new Thread(this.ProceedBellmanFord);
             }
             else if (algorithmName.Equals("FWARSHALL"))
             {
@@ -87,6 +87,12 @@ namespace Praca_licencjacka
                 marked.PARENT.ALGORITHM_BOUND = false;
                 marked = marked.PARENT;
             }
+        }
+
+        private int GetGraphSize()
+        {
+            Graph graph = Graph.GetInstance();
+            return graph.GetSize();
         }
 
         public Vertex GetStarting()
@@ -194,6 +200,7 @@ namespace Praca_licencjacka
                 currentVertex.DISTANCE = Double.MaxValue;
                 currentVertex.PARENT = null;
                 currentVertex.VISITED = false;
+                currentVertex.DISTANCE = Double.MaxValue;
             }
         }
 
@@ -498,6 +505,61 @@ namespace Praca_licencjacka
             this.ClearVertexesStatistics();
         }
 
+        public void ProceedBellmanFord()
+        {
+            this.ClearVertexesStatistics();
+            List<Vertex> listedGraph = Graph.GetInstance().ToVertexList();
+            Vertex starting = this.GetStarting();
+            Vertex ending = this.GetEnding();
+            starting.DISTANCE = 0;
+
+            int graphSize = this.GetGraphSize();
+            for (int i = 1; i < graphSize; i++)
+            {
+                bool test = true;
+                foreach (Vertex currentVertex in listedGraph)
+                {
+                    List<Edge> neighbours = currentVertex.GetEdges();
+                    foreach (Edge currentNeighbour in neighbours)
+                    {
+                        this.MarkFocused(currentNeighbour.GetDestination());
+                        double currentValue = currentNeighbour.GetDestination().DISTANCE;
+                        double proposedValue = currentVertex.DISTANCE + currentNeighbour.GetTravelCost();
+                        if (currentValue <= proposedValue)
+                            continue;
+                        test = false;
+                        currentNeighbour.GetDestination().DISTANCE = proposedValue;
+                        currentNeighbour.GetDestination().PARENT = currentVertex;
+                        this.MarkAllChildren(currentNeighbour.GetDestination());
+                        this.Redraw();
+                        Thread.Sleep(this.timeInterval);
+                    }
+                }
+                if (test)
+                {
+                    this.MarkFocused(ending);
+                    this.MarkAllChildren(ending);
+                    this.Redraw();
+                    this.MarkEnding(ending.GetVertexPosition());
+                    this.MarkStarted(starting.GetVertexPosition());
+                    MessageBox.Show("Najktótsza ścieżka: " + Math.Round(this.GetEnding().DISTANCE).ToString());
+                    this.ClearVertexesStatistics();
+                    return;
+                }
+            }
+            foreach (Vertex currentVertex in listedGraph)
+            {
+                List<Edge> neighbours = currentVertex.GetEdges();
+                foreach (Edge currentNeighbour in neighbours)
+                {
+                    if(currentNeighbour.GetDestination().DISTANCE > currentVertex.DISTANCE + currentNeighbour.GetTravelCost())
+                    {
+                        MessageBox.Show("W grafie znajdują się ujemne cykle, wynik może być niepoprawny!");
+                        return;
+                    }
+                }
+            }
+        }
         private void MarkAllChildren(Vertex focused)
         {
             while(focused.PARENT != null)
