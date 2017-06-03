@@ -447,7 +447,9 @@ namespace Praca_licencjacka
                     }
                 }
             }
-            MessageBox.Show("Najkrótsza ścieżka: "+ Math.Round(ending.DISTANCE).ToString());
+            if(!ending.DISTANCE.Equals(Double.MaxValue))
+                MessageBox.Show("Najkrótsza ścieżka: "+ Math.Round(ending.DISTANCE).ToString());
+            else MessageBox.Show("Ścieżka nie istnieje!");
             this.ClearEdgesStatistics();
             this.ClearVertexesStatistics();
             this.MarkEnding(ending.GetVertexPosition());
@@ -542,7 +544,9 @@ namespace Praca_licencjacka
                     this.Redraw();
                     this.MarkEnding(ending.GetVertexPosition());
                     this.MarkStarted(starting.GetVertexPosition());
-                    MessageBox.Show("Najktótsza ścieżka: " + Math.Round(this.GetEnding().DISTANCE).ToString());
+                    if (!ending.DISTANCE.Equals(Double.MaxValue))
+                        MessageBox.Show("Najktótsza ścieżka: " + Math.Round(this.GetEnding().DISTANCE).ToString());
+                    else MessageBox.Show("Ścieżka nie istnieje!");
                     this.ClearVertexesStatistics();
                     return;
                 }
