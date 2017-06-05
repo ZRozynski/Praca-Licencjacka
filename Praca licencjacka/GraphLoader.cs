@@ -65,7 +65,7 @@ namespace Praca_licencjacka
             Point second = new Point(secondX, secondY);
             Vertex fVertex = graph.GetVertexColliding(first);
             Vertex sVertex = graph.GetVertexColliding(second);
-            fVertex.AddNewNeighbour(sVertex);
+            fVertex.AddEdgeWithAutimaticDistanceCalculation(sVertex);
         }
     }
 }

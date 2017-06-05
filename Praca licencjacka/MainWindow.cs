@@ -120,8 +120,16 @@ namespace Praca_licencjacka
                 Vertex draggedVertex = Graph.GetInstance().GetVertexColliding(clickedPoint);
                 if (draggedVertex != null && selectedVertex != null)
                 {
-                    selectedVertex.AddNewNeighbour(draggedVertex);
-                    draggedVertex.AddNewNeighbour(selectedVertex);
+                    if (e.Button.Equals(MouseButtons.Left))
+                    {
+                        selectedVertex.AddEdgeWithAutimaticDistanceCalculation(draggedVertex);
+                        draggedVertex.AddEdgeWithAutimaticDistanceCalculation(selectedVertex);
+                    }
+                    else
+                    {
+                        double enteredCost = selectedVertex.AddEdgeWithManualDistanceInsertionAndGetEnteredCost(draggedVertex);
+                        draggedVertex.AddEdgeWithManualDistanceInsertion(selectedVertex, enteredCost);
+                    }
                 }
                 this._graphManager.Unmark(selectedVertex);
             }

@@ -62,11 +62,25 @@ namespace Praca_licencjacka
             return this._yPos;
         }
 
-        public void AddNewNeighbour(Vertex neighbour)
+        public void AddEdgeWithAutimaticDistanceCalculation(Vertex neighbour)
         {
             if (this.Equals(neighbour) || this.GetEdgeByVertex(neighbour) != null)
                 return;
             double distanceBetween = this.CalculateDistance(neighbour);
+            this._neighbours.Add(new Edge(neighbour, distanceBetween));
+        }
+
+        public double AddEdgeWithManualDistanceInsertionAndGetEnteredCost(Vertex neighbour)
+        {
+            DistanceReadingFromUserKeabordDialog distanceReadingDialog = new DistanceReadingFromUserKeabordDialog();
+            distanceReadingDialog.ShowDialog();
+            double distanceBetween = distanceReadingDialog._userWageEntered;
+            this._neighbours.Add(new Edge(neighbour, distanceBetween));
+            return distanceBetween;
+        }
+
+        public void AddEdgeWithManualDistanceInsertion(Vertex neighbour, double distanceBetween)
+        {
             this._neighbours.Add(new Edge(neighbour, distanceBetween));
         }
 

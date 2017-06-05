@@ -11,7 +11,7 @@ namespace Praca_licencjacka
 {
     class GraphManager
     {
-        private int timeInterval = 200;
+        private int timeInterval = 100;
         private PictureBox _drawingPanel;
         private ListBox _graphInformation;
         private Thread algorithmThread;
@@ -82,6 +82,10 @@ namespace Praca_licencjacka
 
         private void ClearMarkedChildred(Vertex marked)
         {
+            if (this.ContainsInstanceLoop(marked))
+            {
+                return;
+            }
             while(marked.PARENT != null)
             {
                 marked.PARENT.ALGORITHM_BOUND = false;
@@ -323,6 +327,8 @@ namespace Praca_licencjacka
         private int GetPixelsAmount(int number)
         {
             int pixels = 0;
+            if (number < 0)
+                pixels = pixels + 13;
             while (true)
             {
                 if ((number).Equals(0))
@@ -537,13 +543,15 @@ namespace Praca_licencjacka
                         Thread.Sleep(this.timeInterval);
                     }
                 }
+                this.MarkEnding(ending.GetVertexPosition());
+                this.MarkStarted(starting.GetVertexPosition());
                 if (test)
                 {
+                    this.MarkStarted(starting.GetVertexPosition());
                     this.MarkFocused(ending);
                     this.MarkAllChildren(ending);
                     this.Redraw();
                     this.MarkEnding(ending.GetVertexPosition());
-                    this.MarkStarted(starting.GetVertexPosition());
                     if (!ending.DISTANCE.Equals(Double.MaxValue))
                         MessageBox.Show("Najktótsza ścieżka: " + Math.Round(this.GetEnding().DISTANCE).ToString());
                     else MessageBox.Show("Ścieżka nie istnieje!");
@@ -559,6 +567,8 @@ namespace Praca_licencjacka
                     if(currentNeighbour.GetDestination().DISTANCE > currentVertex.DISTANCE + currentNeighbour.GetTravelCost())
                     {
                         MessageBox.Show("W grafie znajdują się ujemne cykle, wynik może być niepoprawny!");
+                        this.ClearVertexesStatistics();
+                        this.Redraw();
                         return;
                     }
                 }
@@ -566,6 +576,8 @@ namespace Praca_licencjacka
         }
         private void MarkAllChildren(Vertex focused)
         {
+            if (this.ContainsInstanceLoop(focused))
+                return;
             while(focused.PARENT != null)
             {
                 focused.PARENT.ALGORITHM_BOUND = true;
@@ -573,6 +585,21 @@ namespace Praca_licencjacka
             }
         }
 
+        private bool ContainsInstanceLoop(Vertex focused)
+        {
+            List<int> existingIDs = new List<int>();
+            existingIDs.Add(focused._id); 
+            while(focused.PARENT != null)
+            {
+                focused = focused.PARENT;
+                if (existingIDs.Contains(focused._id))
+                    return true;
+                existingIDs.Add(focused._id);
+            }
+            existingIDs.Clear();
+            return false;
+        }
+  
         private void ClearTravelCostStatistics()
         {
             Graph graph = Graph.GetInstance();
