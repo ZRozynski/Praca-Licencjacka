@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -123,12 +124,12 @@ namespace Praca_licencjacka
                     if (e.Button.Equals(MouseButtons.Left))
                     {
                         selectedVertex.AddEdgeWithAutimaticDistanceCalculation(draggedVertex);
-                        draggedVertex.AddEdgeWithAutimaticDistanceCalculation(selectedVertex);
+                        //draggedVertex.AddEdgeWithAutimaticDistanceCalculation(selectedVertex);
                     }
                     else
                     {
                         double enteredCost = selectedVertex.AddEdgeWithManualDistanceInsertionAndGetEnteredCost(draggedVertex);
-                        draggedVertex.AddEdgeWithManualDistanceInsertion(selectedVertex, enteredCost);
+                        //draggedVertex.AddEdgeWithManualDistanceInsertion(selectedVertex, enteredCost);
                     }
                 }
                 this._graphManager.Unmark(selectedVertex);
@@ -172,7 +173,9 @@ namespace Praca_licencjacka
             first.X += 12; first.Y += 12;
             using(Graphics myGraphics = Graphics.FromImage(this.DrawingDesk.Image))
             {
-                Pen myPen = new Pen(new SolidBrush(Color.Indigo),2);
+                AdjustableArrowCap bigArrow = new AdjustableArrowCap(6, 6);
+                Pen myPen = new Pen(new SolidBrush(Color.Gray),3);
+                myPen.CustomEndCap = bigArrow;
                 myGraphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
                 myGraphics.DrawLine(myPen, first, second);
             }

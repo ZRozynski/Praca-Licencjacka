@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -339,37 +340,63 @@ namespace Praca_licencjacka
             return pixels;
         }
 
+        private void DrawEdgeDirectionOnly(Vertex beggining, Edge edge)
+        {
+            Pen myPen = new Pen(new SolidBrush(Color.Gray), 3);
+            AdjustableArrowCap bigArrow = new AdjustableArrowCap(6, 6);
+            myPen.CustomEndCap = bigArrow;
+            Point startingPosition = beggining.GetVertexPosition();
+            Point endingPosition = edge.GetDestination().GetVertexPosition();
+            startingPosition.X += 12; startingPosition.Y += 12;
+            endingPosition.X += 12; endingPosition.Y += 12;
+            using(Graphics myGraphics = Graphics.FromImage(this._drawingPanel.Image))
+            {
+                myGraphics.SmoothingMode = SmoothingMode.HighQuality;
+                myGraphics.DrawLine(myPen, startingPosition, endingPosition);
+            }
+        }
+        private bool IsAlgorithmBound(Vertex vertex, Edge edge)
+        {
+            return (edge.IsChild(vertex) && (edge.GetDestination().STATUS.Equals("FOCUSED") ||
+                            edge.GetDestination().ALGORITHM_BOUND));
+        }
+
         private void DrawEdges()
         {
             Graph graph = Graph.GetInstance();
             List<Vertex> listedGraph = graph.ToVertexList();
-
+            AdjustableArrowCap bigArrow = new AdjustableArrowCap(6, 6);
             using (Graphics edgeDrawer = Graphics.FromImage(this._drawingPanel.Image))
             {
-                edgeDrawer.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                edgeDrawer.SmoothingMode = SmoothingMode.HighQuality;
                 foreach (Vertex currentVertex in listedGraph)
                 {
                     List<Edge> neighbours = currentVertex.GetEdges();
                     foreach(Edge currentEdge in neighbours)
                     {
-                        
                         if (!currentEdge.CanBeDrawn(currentVertex))
-                            continue;
-                        currentEdge._drawn = true;
-                        Pen myPen;
-                        if (currentEdge.IsChild(currentVertex) && (currentEdge.GetDestination().STATUS.Equals("FOCUSED") ||
-                            currentEdge.GetDestination().ALGORITHM_BOUND))
                         {
-                            myPen = new Pen(new SolidBrush(Color.Green), 5);
+                            continue;
+                        }
+                        currentEdge._drawn = true;
+                        Pen myPen = Pens.Black; 
+                        if (this.IsAlgorithmBound(currentVertex,currentEdge))
+                        {
+                            myPen = new Pen(new SolidBrush(Color.Green), 3);
                         }
                         else
                         {
-                            myPen = new Pen(new SolidBrush(Color.Black), 3);
+                            myPen = new Pen(new SolidBrush(Color.Gray), 3);
                         }
+                        myPen.CustomEndCap = bigArrow;
                         Point startingPosition = currentVertex.GetVertexPosition();
                         Point endingPosition = currentEdge.GetDestination().GetVertexPosition();
                         startingPosition.X += 12; startingPosition.Y += 12;
                         endingPosition.X += 12; endingPosition.Y += 12;
+                        Vertex neighbour = currentEdge.GetDestination();
+                        Edge reversedEdge = neighbour.GetEdgeByVertex(currentVertex);
+                        if(neighbour != null && reversedEdge != null)
+                            this.DrawEdgeDirectionOnly(neighbour, reversedEdge);
                         edgeDrawer.DrawLine(myPen, startingPosition, endingPosition);
                     }
                 }
