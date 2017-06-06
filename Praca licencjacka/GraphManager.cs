@@ -526,7 +526,9 @@ namespace Praca_licencjacka
                         first.ALGORITHM_BOUND = false;
                         second.ALGORITHM_BOUND = false;
                         third.ALGORITHM_BOUND = false;
-                        algInfoDialog.ShowDialog();
+                        if(!algInfoDialog.isSkippedByUser)
+                            algInfoDialog.ShowDialog();
+                        Thread.Sleep(this.timeInterval);
                     }
                 }
             }

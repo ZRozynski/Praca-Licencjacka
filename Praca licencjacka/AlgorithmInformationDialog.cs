@@ -15,6 +15,7 @@ namespace Praca_licencjacka
 
         private double[,] _adjacencyMatrix;
         public bool isfinishedByUser = false;
+        public bool isSkippedByUser = false;
         public AlgorithmInformationDialog(double [,] adjacencyMatrix)
         {
             InitializeComponent();
@@ -81,6 +82,12 @@ namespace Praca_licencjacka
         private void finishBtn_Click(object sender, EventArgs e)
         {
             this.isfinishedByUser = true;
+            this.Hide();
+        }
+
+        private void skipAllBtn_Click(object sender, EventArgs e)
+        {
+            this.isSkippedByUser = true;
             this.Hide();
         }
     }

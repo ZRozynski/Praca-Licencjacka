@@ -57,6 +57,7 @@
             this.answer = new System.Windows.Forms.Label();
             this.finishBtn = new System.Windows.Forms.Button();
             this.continueBtn = new System.Windows.Forms.Button();
+            this.skipAllBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LBL_CURRENT_VERTEXES
@@ -337,12 +338,24 @@
             this.continueBtn.UseVisualStyleBackColor = true;
             this.continueBtn.Click += new System.EventHandler(this.continueBtn_Click);
             // 
+            // skipAllBtn
+            // 
+            this.skipAllBtn.ForeColor = System.Drawing.Color.Peru;
+            this.skipAllBtn.Location = new System.Drawing.Point(162, 242);
+            this.skipAllBtn.Name = "skipAllBtn";
+            this.skipAllBtn.Size = new System.Drawing.Size(217, 23);
+            this.skipAllBtn.TabIndex = 29;
+            this.skipAllBtn.Text = "Przejdź do wyniku.";
+            this.skipAllBtn.UseVisualStyleBackColor = true;
+            this.skipAllBtn.Click += new System.EventHandler(this.skipAllBtn_Click);
+            // 
             // AlgorithmInformationDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSkyBlue;
             this.ClientSize = new System.Drawing.Size(647, 277);
+            this.Controls.Add(this.skipAllBtn);
             this.Controls.Add(this.continueBtn);
             this.Controls.Add(this.finishBtn);
             this.Controls.Add(this.answer);
@@ -414,5 +427,6 @@
         private System.Windows.Forms.Label answer;
         private System.Windows.Forms.Button finishBtn;
         private System.Windows.Forms.Button continueBtn;
+        private System.Windows.Forms.Button skipAllBtn;
     }
 }
