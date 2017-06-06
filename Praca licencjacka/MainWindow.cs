@@ -35,7 +35,7 @@ namespace Praca_licencjacka
         private void InitializeGraphManager()
         {
             this._graphManager = new GraphManager(this.DrawingDesk, this.GraphInformation);
-            this._graphManager.SetTimeInterval(100);
+            this._graphManager.SetTimeInterval(this.intervalTB.Value);
         }
 
         private void RefreshDrawingDesk()
