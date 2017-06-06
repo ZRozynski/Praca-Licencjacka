@@ -126,7 +126,7 @@ namespace Praca_licencjacka
                         selectedVertex.AddEdgeWithAutimaticDistanceCalculation(draggedVertex);
                         //draggedVertex.AddEdgeWithAutimaticDistanceCalculation(selectedVertex);
                     }
-                    else
+                    else if(e.Button.Equals(MouseButtons.Right))
                     {
                         double enteredCost = selectedVertex.AddEdgeWithManualDistanceInsertionAndGetEnteredCost(draggedVertex);
                         //draggedVertex.AddEdgeWithManualDistanceInsertion(selectedVertex, enteredCost);

@@ -35,7 +35,7 @@ namespace Praca_licencjacka
                 {
                     Vertex destination = currentNeighbour.GetDestination();
                     commandBuilder.AppendLine("E:" + currentVertex.GetX() + ":" + currentVertex.GetY() + 
-                        ":" + destination.GetX() + ":" + destination.GetY());
+                        ":" + destination.GetX() + ":" + destination.GetY() + ":"+ currentNeighbour.GetTravelCost());
                 }
             }
             return commandBuilder.ToString();

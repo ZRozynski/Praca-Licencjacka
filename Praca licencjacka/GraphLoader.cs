@@ -61,11 +61,12 @@ namespace Praca_licencjacka
             int firstY = Convert.ToInt32(parameters[2]);
             int secondX = Convert.ToInt32(parameters[3]);
             int secondY = Convert.ToInt32(parameters[4]);
+            double travelCost = Convert.ToDouble(parameters[5]);
             Point first = new Point(firstX, firstY);
             Point second = new Point(secondX, secondY);
             Vertex fVertex = graph.GetVertexColliding(first);
             Vertex sVertex = graph.GetVertexColliding(second);
-            fVertex.AddEdgeWithAutimaticDistanceCalculation(sVertex);
+            fVertex.AddEdgeWithManualDistanceInsertion(sVertex,travelCost);
         }
     }
 }
