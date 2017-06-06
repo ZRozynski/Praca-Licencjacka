@@ -71,19 +71,12 @@ namespace Praca_licencjacka
                 Vertex currentVertex = this.GetVertexById(i + 1);
                 for (int j = 0; j < graphSize; j++)
                 {
-                    if (i.Equals(j))
-                    {
-                        adjacencyMatrix[i, j] = 0;
-                        continue;
-                    }
-
                     adjacencyMatrix[i, j] = Double.MaxValue;
                     Vertex possibleDestination = this.GetVertexById(j + 1);
                     Edge possibleEdge = currentVertex.GetEdgeByVertex(possibleDestination);
                     if (possibleEdge != null)
                     {
                         adjacencyMatrix[i, j] = possibleEdge.GetTravelCost();
-                        adjacencyMatrix[j, i] = possibleEdge.GetTravelCost();
                     }
                 }
                 adjacencyMatrix[i, i] = 0;

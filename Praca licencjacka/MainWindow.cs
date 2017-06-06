@@ -29,7 +29,7 @@ namespace Praca_licencjacka
         private void InitializeDrawingDesk()
         {
             this.DrawingDesk.Image = new Bitmap(this.DrawingDesk.Width, this.DrawingDesk.Height);
-            this.txtInterval.Text = "100 milisekund.";
+            this.txtInterval.Text = "1000 milisekund.";
             this.chosenAlgorithmDijkstra.Checked = true;
         }
         private void InitializeGraphManager()

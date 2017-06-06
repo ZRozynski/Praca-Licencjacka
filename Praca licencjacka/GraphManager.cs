@@ -490,6 +490,7 @@ namespace Praca_licencjacka
 
         public void ProceedFloydWarshall()
         {
+            this.ClearVertexesStatistics();
             double[,] adjacencyMatrix = Graph.GetInstance().GetAdjacencyMatrix();
             int graphSize = Graph.GetInstance().GetSize();
             AlgorithmInformationDialog algInfoDialog = new AlgorithmInformationDialog(adjacencyMatrix);

@@ -136,15 +136,14 @@
             // 
             // intervalTB
             // 
-            this.intervalTB.LargeChange = 50;
+            this.intervalTB.LargeChange = 100;
             this.intervalTB.Location = new System.Drawing.Point(12, 636);
             this.intervalTB.Maximum = 2000;
-            this.intervalTB.Minimum = 100;
             this.intervalTB.Name = "intervalTB";
             this.intervalTB.Size = new System.Drawing.Size(349, 45);
             this.intervalTB.SmallChange = 25;
             this.intervalTB.TabIndex = 13;
-            this.intervalTB.Value = 100;
+            this.intervalTB.Value = 1000;
             this.intervalTB.ValueChanged += new System.EventHandler(this.intervalTB_ValueChanged);
             // 
             // LBL_INTERVAL
