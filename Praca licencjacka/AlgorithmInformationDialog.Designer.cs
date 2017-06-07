@@ -224,9 +224,10 @@
             // LBL_QUESTION2
             // 
             this.LBL_QUESTION2.AutoSize = true;
+            this.LBL_QUESTION2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.LBL_QUESTION2.Location = new System.Drawing.Point(302, 104);
             this.LBL_QUESTION2.Name = "LBL_QUESTION2";
-            this.LBL_QUESTION2.Size = new System.Drawing.Size(30, 16);
+            this.LBL_QUESTION2.Size = new System.Drawing.Size(29, 16);
             this.LBL_QUESTION2.TabIndex = 17;
             this.LBL_QUESTION2.Text = "do ";
             // 
@@ -351,8 +352,8 @@
             // 
             // AlgorithmInformationDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.LightSkyBlue;
             this.ClientSize = new System.Drawing.Size(647, 277);
             this.Controls.Add(this.skipAllBtn);
@@ -386,6 +387,7 @@
             this.Controls.Add(this.currentVertexesTXT);
             this.Controls.Add(this.LBL_CURRENT_VERTEXES);
             this.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AlgorithmInformationDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

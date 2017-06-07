@@ -12,14 +12,17 @@ namespace Praca_licencjacka
 {
     public partial class AlgorithmInformationDialog : Form
     {
-
         private double[,] _adjacencyMatrix;
         public bool isfinishedByUser = false;
         public bool isSkippedByUser = false;
-        public AlgorithmInformationDialog(double [,] adjacencyMatrix)
+        public AlgorithmInformationDialog(double [,] adjacencyMatrix, int fontSize)
         {
             InitializeComponent();
             this._adjacencyMatrix = adjacencyMatrix;
+            this.Font = new Font("Verdana", fontSize, FontStyle.Bold);
+            this.LBL_QUESTION1.Font = LBL_QUESTION2.Font = LBL_QUESTION3.Font = new Font("Verdana", fontSize, FontStyle.Bold);
+            this.IDFirst2.Font = IDThirth2.Font = new Font("Verdana", fontSize, FontStyle.Bold);
+            this.answer.Font = new Font("Verdana", fontSize, FontStyle.Bold);
         }
 
         public void ShowCurrentAlgorithmProcess(int firstID, int secondID, int thirthID)

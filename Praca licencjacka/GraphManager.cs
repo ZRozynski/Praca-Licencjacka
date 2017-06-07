@@ -12,6 +12,7 @@ namespace Praca_licencjacka
 {
     class GraphManager
     {
+        public int displayableFontSize = 12;
         private int timeInterval = 100;
         private PictureBox _drawingPanel;
         private ListBox _graphInformation;
@@ -493,7 +494,7 @@ namespace Praca_licencjacka
             this.ClearVertexesStatistics();
             double[,] adjacencyMatrix = Graph.GetInstance().GetAdjacencyMatrix();
             int graphSize = Graph.GetInstance().GetSize();
-            AlgorithmInformationDialog algInfoDialog = new AlgorithmInformationDialog(adjacencyMatrix);
+            AlgorithmInformationDialog algInfoDialog = new AlgorithmInformationDialog(adjacencyMatrix,this.displayableFontSize);
             for (int k = 0; k < graphSize; k++)
             {
                 for(int i = 0; i < graphSize; i++)

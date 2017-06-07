@@ -18,6 +18,8 @@ namespace Praca_licencjacka
         string MODE = "OPERATION";
         bool _mouseButtonClicked = false;
         bool _vertexSelected = false;
+        private int _windowFontSize = 12;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -235,6 +237,29 @@ namespace Praca_licencjacka
                 chosenAlgorithmBFord.Checked = false;
                 chosenAlgorithmDijkstra.Checked = false;
             }
+        }
+
+        private void ChangeWindowFontSize()
+        {
+            this.Font = new Font("Verdana", this._windowFontSize, FontStyle.Bold);
+            this.chosenAlgorithmBFord.Font = new Font("Verdana", this._windowFontSize, FontStyle.Regular);
+            this.chosenAlgorithmDijkstra.Font = new Font("Verdana", this._windowFontSize, FontStyle.Regular);
+            this.chosenAlgorithmFWarshall.Font = new Font("Verdana", this._windowFontSize, FontStyle.Regular);
+            this.LBL_INTERVAL.Font = new Font("Verdana", this._windowFontSize, FontStyle.Bold);
+            this.txtInterval.Font = new Font("Verdana", this._windowFontSize, FontStyle.Bold); ;
+            this.GraphInformation.Font = new Font("Verdana", this._windowFontSize, FontStyle.Regular); ;
+        }
+
+        private void changeFontBtn_Click(object sender, EventArgs e)
+        {
+            this._windowFontSize = Convert.ToInt32(Microsoft.VisualBasic.Interaction.InputBox("Podaj rozmiar czcionki(5 - 12):", "Zmień rozmiar czcionki.", "8"));
+            if (this._windowFontSize < 5 || this._windowFontSize > 12)
+            {
+                MessageBox.Show("Niepoprawny rozmiar czcionki!");
+                this._windowFontSize = 12;
+            }
+            this._graphManager.displayableFontSize = this._windowFontSize;
+            this.ChangeWindowFontSize();
         }
     }
 }
