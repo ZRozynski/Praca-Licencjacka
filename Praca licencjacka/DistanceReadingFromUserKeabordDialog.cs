@@ -12,7 +12,7 @@ namespace Praca_licencjacka
 {
     public partial class DistanceReadingFromUserKeabordDialog : Form
     {
-        public double _userWageEntered;
+        public double _wageEntered;
         public DistanceReadingFromUserKeabordDialog()
         {
             InitializeComponent();
@@ -34,7 +34,7 @@ namespace Praca_licencjacka
         {
             try
             {
-                this._userWageEntered = this.ConvertWageFromStringToDouble();
+                this._wageEntered = this.ConvertWageFromStringToDouble();
                 this.Hide();
             }
             catch(FormatException formatException)

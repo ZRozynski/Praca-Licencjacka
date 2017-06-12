@@ -12,15 +12,16 @@ namespace Praca_licencjacka
         private int _xPos;
         private int _yPos;
         private List<Edge> _neighbours;
+
         public int vertexSizeInPixels = 25;
         public string STATUS = "NORMAL";
         public bool ALGORITHM_BOUND = false; 
         public double DISTANCE;
         public Vertex PARENT;
-        public bool VISITED;
-        public int _id { set; get; }
+        public bool VISITED = false;
+        public int _id;
 
-        public bool IsChild(Vertex another)
+        public bool IsParent(Vertex another)
         {
             return PARENT == another;
         }
@@ -30,7 +31,6 @@ namespace Praca_licencjacka
             this._xPos = xPos;
             this._yPos = yPos;
             this._neighbours = new List<Edge>();
-            this._id = 0;
         }
         
         public Vertex(Point coordinates)
@@ -74,7 +74,7 @@ namespace Praca_licencjacka
         {
             DistanceReadingFromUserKeabordDialog distanceReadingDialog = new DistanceReadingFromUserKeabordDialog();
             distanceReadingDialog.ShowDialog();
-            double distanceBetween = distanceReadingDialog._userWageEntered;
+            double distanceBetween = distanceReadingDialog._wageEntered;
             this._neighbours.Add(new Edge(neighbour, distanceBetween));
             return distanceBetween;
         }
@@ -101,12 +101,6 @@ namespace Praca_licencjacka
             }
         }
 
-        // After changing Vertex position it is very important to change travel costs to all it's neighbours
-        private void RecalculateTravelCost()
-        {
-            //TODO
-        }
-
         public Point GetVertexPosition()
         {
             return new Point(this._xPos, this._yPos);
@@ -116,8 +110,8 @@ namespace Praca_licencjacka
         {
             double xDistance = Math.Pow(Math.Abs(this._xPos - destination.GetX()), 2);
             double yDistance = Math.Pow(Math.Abs(this._yPos - destination.GetY()), 2);
-            double destinationDistance = Math.Sqrt(xDistance + yDistance);
-            return destinationDistance;
+            double distanceToDestination = Math.Sqrt(xDistance + yDistance);
+            return distanceToDestination;
         }
 
         public Edge GetEdgeByVertex(Vertex neighbour)

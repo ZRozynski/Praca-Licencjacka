@@ -35,15 +35,15 @@ namespace Praca_licencjacka
             return this._travelCost;
         }
 
-        public bool IsChild(Vertex possibleChild)
+        public bool IsParent(Vertex possibleParent)
         {
-            return this._destinationVertex.IsChild(possibleChild);
+            return this._destinationVertex.IsParent(possibleParent);
         }
         public bool CanBeDrawn(Vertex destination)
         {
             return !(this.GetDestination().GetEdgeByVertex(destination) != null &&
                     this.GetDestination().GetEdgeByVertex(destination)._drawn &&
-                    !this.IsChild(destination));
+                    !this.IsParent(destination));
         }
         public Vertex GetDestination()
         {

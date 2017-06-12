@@ -59,9 +59,9 @@ namespace Praca_licencjacka
             this.ineqThirth.Text = secondCost.ToString();
         }
 
-        public void ShowAnswer(bool isGreaterThan)
+        public void ShowAnswer(bool isPositiveAnswer)
         {
-            if (isGreaterThan)
+            if (isPositiveAnswer)
             {
                 this.answer.ForeColor = Color.Green;
                 this.answer.Text = "TAK! Więc zostaje ona zastąpiona drogą o mniejszym koszcie.";

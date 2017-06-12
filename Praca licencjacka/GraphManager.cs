@@ -291,7 +291,7 @@ namespace Praca_licencjacka
                             continue;
                         currentEdge._textDrawn = true;
                         Vertex destination = currentEdge.GetDestination();
-                        if (currentEdge.IsChild(currentVertex) && (currentEdge.GetDestination().STATUS.Equals("FOCUSED") ||
+                        if (currentEdge.IsParent(currentVertex) && (currentEdge.GetDestination().STATUS.Equals("FOCUSED") ||
                             currentEdge.GetDestination().ALGORITHM_BOUND))
                         {
                             myPen = new SolidBrush(Color.Green);
@@ -358,7 +358,7 @@ namespace Praca_licencjacka
         }
         private bool IsAlgorithmBound(Vertex vertex, Edge edge)
         {
-            return (edge.IsChild(vertex) && (edge.GetDestination().STATUS.Equals("FOCUSED") ||
+            return (edge.IsParent(vertex) && (edge.GetDestination().STATUS.Equals("FOCUSED") ||
                             edge.GetDestination().ALGORITHM_BOUND));
         }
 
@@ -524,6 +524,7 @@ namespace Praca_licencjacka
                             adjacencyMatrix[i, j] = proposedValue;
                         }
                         else algInfoDialog.ShowAnswer(false);
+
                         this.Redraw();
                         first.ALGORITHM_BOUND = false;
                         second.ALGORITHM_BOUND = false;

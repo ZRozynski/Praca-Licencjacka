@@ -19,7 +19,6 @@ namespace Praca_licencjacka
 
         public void RemoveVertex(Vertex toRemove)
         {
-            toRemove.RemoveAllNeighbours();
             this._graph.Remove(toRemove);       
         }
     
@@ -83,6 +82,7 @@ namespace Praca_licencjacka
             }
             return adjacencyMatrix;
         }
+
         public int GetSize()
         {
             return this._graph.Count();

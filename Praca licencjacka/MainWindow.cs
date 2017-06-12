@@ -18,7 +18,7 @@ namespace Praca_licencjacka
         string MODE = "OPERATION";
         bool _mouseButtonClicked = false;
         bool _vertexSelected = false;
-        private int _windowFontSize = 12;
+        private int _windowFontSize = 9;
 
         public MainWindow()
         {
@@ -26,6 +26,7 @@ namespace Praca_licencjacka
             this.AutoScaleMode = AutoScaleMode.Dpi;
             this.InitializeDrawingDesk();
             this.InitializeGraphManager();
+            this.ChangeWindowFontSize();
         }
 
         private void InitializeDrawingDesk()
@@ -256,7 +257,7 @@ namespace Praca_licencjacka
             if (this._windowFontSize < 5 || this._windowFontSize > 12)
             {
                 MessageBox.Show("Niepoprawny rozmiar czcionki!");
-                this._windowFontSize = 12;
+                this._windowFontSize = 9;
             }
             this._graphManager.displayableFontSize = this._windowFontSize;
             this.ChangeWindowFontSize();
