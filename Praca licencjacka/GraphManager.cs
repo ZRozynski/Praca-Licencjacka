@@ -15,12 +15,12 @@ namespace Praca_licencjacka
         public int displayableFontSize = 12;
         private int timeInterval = 100;
         private PictureBox _drawingPanel;
-        private ListBox _graphInformation;
+        private ListBox _vertexesInformationList;
         private Thread algorithmThread;
-        public GraphManager(PictureBox drawingPanel, ListBox graphInformation)
+        public GraphManager(PictureBox drawingPanel, ListBox vertexesInformationList)
         {
             this._drawingPanel = drawingPanel;
-            this._graphInformation = graphInformation;
+            this._vertexesInformationList = vertexesInformationList;
             this.algorithmThread = new Thread(this.ProceedDijkstra);
         }
 
@@ -45,6 +45,7 @@ namespace Praca_licencjacka
         {
             this.timeInterval = miliseconds;
         }
+
         public void AddNewVertex(Point coordinates)
         {
             Graph graph = Graph.GetInstance();
@@ -246,7 +247,7 @@ namespace Praca_licencjacka
             List<Vertex> listedGraph = graph.ToVertexList();
             using(Graphics numberDrawer = Graphics.FromImage(this._drawingPanel.Image))
             {
-                numberDrawer.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                numberDrawer.SmoothingMode = SmoothingMode.HighQuality;
                 Brush myPen = new SolidBrush(Color.White);
                 StringFormat drawingFormat = new StringFormat();
                 int pointNumber = 0;
@@ -256,19 +257,20 @@ namespace Praca_licencjacka
                     currentVertex._id = pointNumber;
                     Point currentCoords = currentVertex.GetVertexPosition();
                     currentCoords.X += 5; currentCoords.Y += 5;
-                    numberDrawer.DrawString(pointNumber.ToString(), new Font("Verdana", 10), myPen, currentCoords,drawingFormat);
+                    numberDrawer.DrawString(pointNumber.ToString(), new Font("Verdana", 10), 
+                        myPen, currentCoords,drawingFormat);
                 }
             }
         }
 
         public void UpdateGraphInformation()
         {
-            this._graphInformation.Items.Clear();
+            this._vertexesInformationList.Items.Clear();
             Graph myGraph = Graph.GetInstance();
             List<Vertex> listedGraph = myGraph.ToVertexList();
             foreach (Vertex currentVertex in listedGraph)
             {  
-                this._graphInformation.Items.Add("ID: " + currentVertex._id + ", krawędzi: " + currentVertex.GetEdges().Count + ".");
+                this._vertexesInformationList.Items.Add("ID: " + currentVertex._id + ", krawędzi: " + currentVertex.GetEdges().Count + ".");
             }     
         }
         public void DrawTravelCosts()
@@ -316,12 +318,13 @@ namespace Praca_licencjacka
             List<Vertex> listedGraph = graph.ToVertexList();
             using (Graphics vertexDrawer = Graphics.FromImage(this._drawingPanel.Image))
             {
-                vertexDrawer.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                vertexDrawer.SmoothingMode = SmoothingMode.HighQuality;
                 foreach (Vertex currentVertex in listedGraph)
                 {
                     Brush suitableBrush = this.GetSuitableBrush(currentVertex);
                     int elipseSize = currentVertex.vertexSizeInPixels;
-                    vertexDrawer.FillEllipse(suitableBrush, currentVertex.GetX(), currentVertex.GetY(), elipseSize, elipseSize);
+                    vertexDrawer.FillEllipse(suitableBrush, currentVertex.GetX(),
+                        currentVertex.GetY(), elipseSize, elipseSize);
                 }
             }
         }

@@ -23,7 +23,6 @@ namespace Praca_licencjacka
         public MainWindow()
         {
             InitializeComponent();
-            this.AutoScaleMode = AutoScaleMode.Dpi;
             this.InitializeDrawingDesk();
             this.InitializeGraphManager();
             this.ChangeWindowFontSize();
@@ -95,7 +94,7 @@ namespace Praca_licencjacka
             }
             if (this.MODE.Equals("MARK_ENDING"))
             {
-                this._graphManager.MarkEnding(clickedPoint);
+                this._graphManager.MarkEnding (clickedPoint);
                 this.MODE = "OPERATION";
             }
             this._graphManager.Redraw();
@@ -127,12 +126,11 @@ namespace Praca_licencjacka
                     if (e.Button.Equals(MouseButtons.Left))
                     {
                         selectedVertex.AddEdgeWithAutimaticDistanceCalculation(draggedVertex);
-                        //draggedVertex.AddEdgeWithAutimaticDistanceCalculation(selectedVertex);
                     }
                     else if(e.Button.Equals(MouseButtons.Right))
                     {
-                        double enteredCost = selectedVertex.AddEdgeWithManualDistanceInsertionAndGetEnteredCost(draggedVertex);
-                        //draggedVertex.AddEdgeWithManualDistanceInsertion(selectedVertex, enteredCost);
+                        double enteredCost = selectedVertex.
+                            AddEdgeWithManualDistanceInsertionAndGetEnteredCost(draggedVertex);
                     }
                 }
                 this._graphManager.Unmark(selectedVertex);
