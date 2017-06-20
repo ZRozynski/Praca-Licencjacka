@@ -13,7 +13,7 @@ namespace Praca_licencjacka
     public partial class AlgorithmInformationDialog : Form
     {
         private double[,] _adjacencyMatrix;
-        public bool isfinishedByUser = false;
+        public bool isFinishedByUser = false;
         public bool isSkippedByUser = false;
         public AlgorithmInformationDialog(double [,] adjacencyMatrix, int fontSize)
         {
@@ -84,7 +84,7 @@ namespace Praca_licencjacka
 
         private void finishBtn_Click(object sender, EventArgs e)
         {
-            this.isfinishedByUser = true;
+            this.isFinishedByUser = true;
             this.Hide();
         }
 

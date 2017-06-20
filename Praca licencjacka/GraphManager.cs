@@ -442,9 +442,8 @@ namespace Praca_licencjacka
             Graph graph = Graph.GetInstance();
             List<Vertex> graphListed = graph.ToVertexList();
             List<Vertex> prioryQueue = new List<Vertex>();
-            for(int i = 0; i < graphListed.Count; i++)
-            {
-                Vertex current = graphListed.ElementAt(i);
+            foreach(Vertex current in graphListed)
+            { 
                 current.DISTANCE = Double.MaxValue;
                 current.PARENT = null;
                 current.VISITED = false;
@@ -455,6 +454,7 @@ namespace Praca_licencjacka
             while(prioryQueue.Count != 0)
             {
                 Vertex current = prioryQueue.First();
+                prioryQueue.Remove(current);
                 current.VISITED = true;
                 if (current == ending)
                 {
@@ -463,11 +463,9 @@ namespace Praca_licencjacka
                     this.Redraw();
                     break;
                 }
-                prioryQueue.Remove(current);
                 List<Edge> currentNeighbours = current.GetEdges();
-                for(int i = 0; i < currentNeighbours.Count; i++)
-                {
-                    Edge currentEdge = currentNeighbours.ElementAt(i);
+                foreach(Edge currentEdge in currentNeighbours)
+                { 
                     Vertex neighbour = currentEdge.GetDestination();
                     if (neighbour.VISITED)
                         continue;
@@ -489,25 +487,28 @@ namespace Praca_licencjacka
             else MessageBox.Show("Ścieżka nie istnieje!");
             this.ClearEdgesStatistics();
             this.ClearVertexesStatistics();
+            this.MarkStarted(starting.GetVertexPosition());
             this.MarkEnding(ending.GetVertexPosition());
         }
 
         public void ProceedFloydWarshall()
         {
-            this.ClearVertexesStatistics();
             double[,] adjacencyMatrix = Graph.GetInstance().GetAdjacencyMatrix();
             int graphSize = Graph.GetInstance().GetSize();
-            AlgorithmInformationDialog algInfoDialog = new AlgorithmInformationDialog(adjacencyMatrix,this.displayableFontSize);
+            AlgorithmInformationDialog algInfoDialog = new AlgorithmInformationDialog(adjacencyMatrix,
+                this.displayableFontSize);
             for (int k = 0; k < graphSize; k++)
             {
                 for(int i = 0; i < graphSize; i++)
                 {
                     for(int j = 0; j < graphSize; j++)
                     {
-                        if (algInfoDialog.isfinishedByUser)
+                        if (algInfoDialog.isFinishedByUser)
                             return;
-                        if (adjacencyMatrix[k, j].Equals(Double.MaxValue) || adjacencyMatrix[i, k].Equals(Double.MaxValue))
+                        if (adjacencyMatrix[k, j].Equals(Double.MaxValue) ||
+                            adjacencyMatrix[i, k].Equals(Double.MaxValue))
                             continue;
+
                         algInfoDialog.ShowCurrentAlgorithmProcess(i + 1, k + 1, j + 1);
                         Vertex first, second, third;
                         first = Graph.GetInstance().GetVertexById(k + 1);
@@ -518,9 +519,9 @@ namespace Praca_licencjacka
                         second.ALGORITHM_BOUND = true;
                         third.ALGORITHM_BOUND = true;
 
-                        double actualValue = Math.Round(adjacencyMatrix[i, j]);
-                        double proposedValue = Math.Round((adjacencyMatrix[i, k] +
-                            adjacencyMatrix[k, j]));
+                        double actualValue = adjacencyMatrix[i, j];
+                        double proposedValue = (adjacencyMatrix[i, k] +
+                            adjacencyMatrix[k, j]);
                         if (actualValue > proposedValue)
                         {
                             algInfoDialog.ShowAnswer(true);
@@ -550,7 +551,6 @@ namespace Praca_licencjacka
 
         public void ProceedBellmanFord()
         {
-            this.ClearVertexesStatistics();
             List<Vertex> listedGraph = Graph.GetInstance().ToVertexList();
             Vertex starting = this.GetStarting();
             Vertex ending = this.GetEnding();
@@ -582,11 +582,9 @@ namespace Praca_licencjacka
                 this.MarkStarted(starting.GetVertexPosition());
                 if (test)
                 {
-                    this.MarkStarted(starting.GetVertexPosition());
                     this.MarkFocused(ending);
                     this.MarkAllChildren(ending);
                     this.Redraw();
-                    this.MarkEnding(ending.GetVertexPosition());
                     if (!ending.DISTANCE.Equals(Double.MaxValue))
                         MessageBox.Show("Najktótsza ścieżka: " + Math.Round(this.GetEnding().DISTANCE).ToString());
                     else MessageBox.Show("Ścieżka nie istnieje!");
@@ -599,7 +597,8 @@ namespace Praca_licencjacka
                 List<Edge> neighbours = currentVertex.GetEdges();
                 foreach (Edge currentNeighbour in neighbours)
                 {
-                    if(currentNeighbour.GetDestination().DISTANCE > currentVertex.DISTANCE + currentNeighbour.GetTravelCost())
+                    if(currentNeighbour.GetDestination().DISTANCE > currentVertex.DISTANCE +
+                        currentNeighbour.GetTravelCost())
                     {
                         MessageBox.Show("W grafie znajdują się ujemne cykle, wynik może być niepoprawny!");
                         this.ClearVertexesStatistics();
