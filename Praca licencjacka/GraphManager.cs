@@ -584,6 +584,8 @@ namespace Praca_licencjacka
                 {
                     this.MarkFocused(ending);
                     this.MarkAllChildren(ending);
+                    this.MarkEnding(ending.GetVertexPosition());
+                    this.MarkStarted(starting.GetVertexPosition());
                     this.Redraw();
                     if (!ending.DISTANCE.Equals(Double.MaxValue))
                         MessageBox.Show("Najktótsza ścieżka: " + Math.Round(this.GetEnding().DISTANCE).ToString());
