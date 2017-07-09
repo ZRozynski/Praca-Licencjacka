@@ -551,12 +551,14 @@ namespace Praca_licencjacka
 
         public void ProceedBellmanFord()
         {
+            this.ClearEdgesStatistics();
+            this.ClearVertexesStatistics();
             List<Vertex> listedGraph = Graph.GetInstance().ToVertexList();
             Vertex starting = this.GetStarting();
             Vertex ending = this.GetEnding();
             starting.DISTANCE = 0;
-
             int graphSize = this.GetGraphSize();
+
             for (int i = 1; i < graphSize; i++)
             {
                 bool test = true;
@@ -584,9 +586,9 @@ namespace Praca_licencjacka
                 {
                     this.MarkFocused(ending);
                     this.MarkAllChildren(ending);
+                    this.Redraw();
                     this.MarkEnding(ending.GetVertexPosition());
                     this.MarkStarted(starting.GetVertexPosition());
-                    this.Redraw();
                     if (!ending.DISTANCE.Equals(Double.MaxValue))
                         MessageBox.Show("Najktótsza ścieżka: " + Math.Round(this.GetEnding().DISTANCE).ToString());
                     else MessageBox.Show("Ścieżka nie istnieje!");
